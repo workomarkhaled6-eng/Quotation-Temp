@@ -423,7 +423,7 @@ table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rt
     table.items thead th { padding:9px 7px; text-align:right; font-weight:600; white-space:nowrap; }
     table.items thead th.ltr { direction:ltr; text-align:left; }
     table.items tbody td { padding:8px 7px; vertical-align:top; word-wrap:break-word; overflow-wrap:break-word; word-break:break-word; }
-table.items tbody td:nth-child(4) { white-space:normal; max-width:0; }
+table.items tbody td:nth-child(4) { white-space:normal; min-width:120px; word-break:break-word; }
     table.items tfoot tr { background:#1E1A15; color:#D4B483; }
     table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
     table.items tfoot td.ltr { direction:ltr; text-align:left; }
@@ -436,6 +436,7 @@ table.items tbody td:nth-child(4) { white-space:normal; max-width:0; }
     .dl-btn-print { background:#B8975A; color:#fff; }
     .dl-btn-hide  { background:transparent; color:#D4B483; border:1.5px solid #6B5E4E !important; padding:13px 20px; font-size:14px; }
     @media print { .dl-bar { display:none!important; } body { padding-bottom:0!important; } }
+    .dl-bar { display:none !important; }
   </style>
 </head>
 <body style="padding-bottom:0;"><div style="padding:${forPrint?'0':'24px 28px'};">
@@ -524,7 +525,7 @@ const html = buildPdfHtml(false, true);
 
   showPreview(){
     // معاينة فقط — لا تحفظ
-    $('preview-inner').innerHTML = buildPdfHtml(false);
+$('preview-inner').innerHTML = buildPdfHtml(false, false);
     this.show('pg-preview');
   },
 
