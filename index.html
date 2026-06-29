@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
   const CFG = {
@@ -723,15 +724,17 @@ const API = {
 /* ─── PDF / Print ─── */
 const PDF = {
   downloadAndPrint(){
-    const html = buildPdfHtml(true);
-    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
-    const url  = URL.createObjectURL(blob);
-    const a    = document.createElement('a');
-    a.href     = url;
-    a.download = 'LivingMood_Quote.html';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1000);
+    const container = document.createElement('div');
+    container.innerHTML = buildPdfHtml(false);
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    document.body.appendChild(container);
+    html2pdf().set({
+      margin: [10,10,10,10],
+      filename: 'LivingMood_Quote.pdf',
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit:'mm', format:'a4', orientation:'portrait' }
+    }).from(container).save().then(()=> container.remove());
   }
 };
 
