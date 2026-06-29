@@ -693,21 +693,32 @@ const API = {
 const PDF = {
   downloadAndPrint(){
     const html = buildPdfHtml(true, false);
-    const w = window.open('', '_blank');
-    if(!w){
-      alert_('alert-save','err','المتصفح حجب فتح نافذة الطباعة، اسمح بالنوافذ المنبثقة وحاول تاني');
-      return;
-    }
-    w.document.open();
-    w.document.write(html);
-    w.document.close();
 
-    w.onload = () => {
-      setTimeout(() => {
-        w.focus();
-        w.print();
-      }, 400);
-    };
+    // نمسح أي iframe طباعة قديم لو موجود
+    const old = document.getElementById('print-frame');
+    if(old) old.remove();
+
+    const iframe = document.createElement('iframe');
+    iframe.id = 'print-frame';
+    iframe.style.position = 'fixed';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    // مهم: ننفذ الطباعة فورًا وبشكل متزامن — من غير setTimeout
+    // لأن iOS Safari بيلغي أمر الطباعة لو حصل أي تأخير بعد الضغطة
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+
+    // تنظيف الـ iframe بعد فترة كافية
+    setTimeout(() => iframe.remove(), 5000);
   }
 };
 /* ─── init ─── */
