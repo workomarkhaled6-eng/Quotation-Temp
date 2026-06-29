@@ -200,7 +200,7 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:720px;}
     <div class="field" style="margin-bottom:18px;">
       <input type="email" id="mail-to-input" placeholder="example@email.com" style="direction:ltr;text-align:left;"/>
     </div>
-    <div id="mail-status" style="font-size:12px;color:var(--mid);margin-bottom:14px;display:none;"></div>
+   <div id="mail-status" class="alert" style="margin-bottom:14px;"></div>
     <div class="confirm-btns">
       <button class="btn btn-gold" id="mail-send-btn" onclick="UI.sendMailNow()">إرسال</button>
       <button class="btn btn-outline" onclick="closeMailModal()">إلغاء</button>
@@ -515,24 +515,54 @@ const UI = {
 
   async sendMailNow(){
     const to = $('mail-to-input').value.trim();
-    if(!to){ $('mail-status').textContent='برجاء إدخال إيميل صحيح'; $('mail-status').style.display='block'; return; }
+    const statusEl = $('mail-status');
+    const inputEl  = $('mail-to-input');
+
+    const showStatus = (type, msg) => {
+      statusEl.className = 'alert alert-' + type;
+      statusEl.textContent = msg;
+      statusEl.style.display = 'block';
+    };
+
+    inputEl.style.borderColor = '';
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(!to || !emailRegex.test(to)){
+      inputEl.style.borderColor = '#dc3545';
+      showStatus('err', '⚠ من فضلك اكتب إيميل صحيح');
+      inputEl.focus();
+      return;
+    }
+
     $('mail-send-btn').disabled = true;
-    $('mail-status').textContent = 'جاري الإرسال...';
-    $('mail-status').style.display = 'block';
+    showStatus('ok', '⏳ جاري الإرسال...');
+    statusEl.className = 'alert alert-ok'; // نضمن ظهورها بلون محايد وقت التحميل
+    statusEl.style.background = '#F3EFEA';
+    statusEl.style.color = 'var(--mid)';
+    statusEl.style.border = '1px solid var(--border)';
+
     try{
-const d = await API.fetch('POST',{
-  action:'sendEmailQuote',
-  to,
-  subject:'عرض سعر Living Mood',
-  rows: STATE.rows.map(r=>({...r, total: Q.tot(r)})),
-  customer: STATE.customer,
-  grandTotal: Q.grand(),
-  dollar: dollar()
-});
-      if(d.success){ $('mail-status').textContent='✔ تم الإرسال بنجاح'; setTimeout(closeMailModal,1500); }
-      else $('mail-status').textContent='خطأ: '+(d.error||'غير معروف');
-    }catch(e){ $('mail-status').textContent='تعذر الإرسال: '+e.message; }
-    finally{ $('mail-send-btn').disabled=false; }
+      const d = await API.fetch('POST',{
+        action:'sendEmailQuote',
+        to,
+        subject:'عرض سعر Living Mood',
+        rows: STATE.rows.map(r=>({...r, total: Q.tot(r)})),
+        customer: STATE.customer,
+        grandTotal: Q.grand(),
+        dollar: dollar()
+      });
+      if(d.success){
+        showStatus('ok', '✔ تم إرسال عرض السعر بنجاح');
+        setTimeout(closeMailModal, 1800);
+      } else {
+        inputEl.style.borderColor = '#dc3545';
+        showStatus('err', '✕ ' + (d.error || 'حدث خطأ غير متوقع، حاول تاني'));
+      }
+    }catch(e){
+      showStatus('err', '✕ تعذر الاتصال بالسيرفر: ' + e.message);
+    } finally {
+      $('mail-send-btn').disabled = false;
+    }
   },
 
   showPreview(){
