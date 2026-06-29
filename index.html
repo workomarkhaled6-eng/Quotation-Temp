@@ -694,31 +694,40 @@ const PDF = {
   downloadAndPrint(){
     const html = buildPdfHtml(true, false);
 
-    // نمسح أي iframe طباعة قديم لو موجود
-    const old = document.getElementById('print-frame');
-    if(old) old.remove();
+    // نستخرج محتوى الـ body فقط من الـ HTML المبني
+    const parser = new DOMParser();
+    const parsed = parser.parseFromString(html, 'text/html');
+    const printContent = parsed.body.innerHTML;
+    const printStyles  = parsed.head.innerHTML; // الفونتس + الـ style بتاعة الكوتيشن
 
-    const iframe = document.createElement('iframe');
-    iframe.id = 'print-frame';
-    iframe.style.position = 'fixed';
-    iframe.style.width = '0';
-    iframe.style.height = '0';
-    iframe.style.border = '0';
-    iframe.style.visibility = 'hidden';
-    document.body.appendChild(iframe);
+    // نحفظ الصفحة الحالية كاملة عشان نرجعها بعد الطباعة
+    const originalHead = document.head.innerHTML;
+    const originalBody  = document.body.innerHTML;
+    const originalTitle = document.title;
 
-    const doc = iframe.contentWindow.document;
-    doc.open();
-    doc.write(html);
-    doc.close();
+    // نستبدل الصفحة مؤقتًا بمحتوى الكوتيشن بس (ده اللي هيطبعه المتصفح على الموبايل)
+    document.title = 'LivingMood_Quote';
+    document.head.innerHTML = printStyles;
+    document.body.innerHTML = printContent;
 
-    // مهم: ننفذ الطباعة فورًا وبشكل متزامن — من غير setTimeout
-    // لأن iOS Safari بيلغي أمر الطباعة لو حصل أي تأخير بعد الضغطة
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
+    const restore = () => {
+      document.head.innerHTML = originalHead;
+      document.body.innerHTML = originalBody;
+      document.title = originalTitle;
+      // نعيد تحميل الصفحة لاستعادة كل الفنكشنز والـ event listeners
+      location.reload();
+    };
 
-    // تنظيف الـ iframe بعد فترة كافية
-    setTimeout(() => iframe.remove(), 5000);
+    // afterprint بيشتغل على ديسكتوب، وعلى الموبايل ممكن ميتطلقش، فبنحط fallback بزرار رجوع
+    window.onafterprint = restore;
+
+    // طباعة فورية جوه نفس الضغطة (متزامنة، من غير أي setTimeout)
+    window.print();
+
+    // fallback لو onafterprint مش مدعوم على المتصفح: نرجع الصفحة تلقائيًا بعد فترة
+    setTimeout(() => {
+      if(document.title === 'LivingMood_Quote') restore();
+    }, 3000);
   }
 };
 /* ─── init ─── */
