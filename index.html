@@ -352,6 +352,10 @@ function openConfirm(msg, cb){
   $('confirm-msg').textContent = msg;
   _confirmCb = cb;
   $('confirm-modal').classList.add('open');
+  $('confirm-yes').onclick = function(){
+    closeConfirm();
+    if(_confirmCb) _confirmCb();
+  };
 }
 function closeConfirm(){ $('confirm-modal').classList.remove('open'); _confirmCb=null; }
 function closeMailModal(){ $('mail-modal').classList.remove('open'); }
