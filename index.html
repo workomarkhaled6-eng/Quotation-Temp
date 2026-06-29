@@ -517,8 +517,15 @@ const UI = {
     $('mail-status').textContent = 'جاري الإرسال...';
     $('mail-status').style.display = 'block';
     try{
-const html = buildPdfHtml(false, true);
-      const d = await API.fetch('POST',{action:'sendEmailQuote', to, subject:'عرض سعر Living Mood', html});
+const d = await API.fetch('POST',{
+  action:'sendEmailQuote',
+  to,
+  subject:'عرض سعر Living Mood',
+  rows: STATE.rows.map(r=>({...r, total: Q.tot(r)})),
+  customer: STATE.customer,
+  grandTotal: Q.grand(),
+  dollar: dollar()
+});
       if(d.success){ $('mail-status').textContent='✔ تم الإرسال بنجاح'; setTimeout(closeMailModal,1500); }
       else $('mail-status').textContent='خطأ: '+(d.error||'غير معروف');
     }catch(e){ $('mail-status').textContent='تعذر الإرسال: '+e.message; }
