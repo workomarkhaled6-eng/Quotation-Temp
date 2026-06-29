@@ -422,7 +422,7 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
 table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
     .items-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 
-@media screen and (max-width:600px) {
+${forEmail ? `@media screen and (max-width:600px) {` : `@media screen and (max-width:1px) {`}
   table.items thead { display:none; }
   table.items, table.items tbody, table.items tr, table.items td { display:block; width:100%; }
   table.items tbody tr {
