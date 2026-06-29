@@ -389,11 +389,7 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
       </tr>`;
   });
 
-  const printScript = forPrint ? `<script>
-    document.fonts.ready.then(function(){
-      setTimeout(function(){ window.print(); }, 600);
-    });
-  <\/script>` : '';
+const printScript = '';
 
   return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -423,8 +419,8 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
     .date-row { font-size:12px; color:#6B5E4E; direction:ltr; text-align:left; margin-bottom:14px; }
     .intro { font-size:13px; color:#6B5E4E; line-height:1.9; text-align:center; margin-bottom:14px; }
 
-table.items { width:100%; min-width:680px; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
-    .items-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
+    .items-wrap { overflow-x:visible; }
 
 
     table.items thead tr { background:#2C5F3A; color:#fff; }
@@ -466,14 +462,14 @@ u + #body .notes-box, #MessageViewBody .notes-box { display:block !important; ma
   <div class="items-wrap"><table class="items">
     <thead>
       <tr>
-        <th style="width:24px;">#</th>
-        <th style="width:110px;white-space:nowrap;">النموذج</th>
-        <th style="width:50px;">الوحدة</th>
+      <th style="width:5%;">#</th>
+        <th style="width:13%;white-space:nowrap;">النموذج</th>
+        <th style="width:7%;">الوحدة</th>
         <th style="width:auto;">المطلوب تنفيذه</th>
-        <th style="width:36px;text-align:center;">عدد</th>
-        <th class="ltr" style="width:60px;">السعر</th>
-<th class="ltr" style="width:70px;">الإجمالي</th>
-        <th style="width:88px;">ملاحظات</th>
+        <th style="width:6%;text-align:center;">عدد</th>
+        <th class="ltr" style="width:9%;">السعر</th>
+<th class="ltr" style="width:10%;">الإجمالي</th>
+        <th style="width:11%;">ملاحظات</th>
       </tr>
     </thead>
     <tbody>${tbody}</tbody>
@@ -696,16 +692,56 @@ const API = {
 /* ─── PDF / Print ─── */
 const PDF = {
   downloadAndPrint(){
-    const html = buildPdfHtml(true); // forPrint=true بيضيف auto-print script
-    const win = window.open('', '_blank');
-    if(!win){
-      alert_('alert-save','err','المتصفح منع فتح نافذة جديدة — اسمح بالنوافذ المنبثقة وحاول تاني');
-      return;
-    }
-    win.document.title = ''; // يقلل ظهور اسم الصفحة في الهيدر
-    win.document.open();
-    win.document.write(html);
-    win.document.close();
+    loading('جاري تحضير PDF...');
+
+    // نبني المحتوى جوه iframe منفصل تمامًا — أكثر استقرارًا من div عادي مع html2canvas
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.top = '0';
+    iframe.style.left = '-99999px';
+    iframe.style.width = '794px';   // عرض A4 تقريبًا بالبكسل عند 96dpi
+    iframe.style.height = '1123px'; // ارتفاع A4 تقريبًا
+    iframe.style.border = 'none';
+    document.body.appendChild(iframe);
+
+    const html = buildPdfHtml(true, false);
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    const cleanup = () => { try{ iframe.remove(); }catch(e){} loaded(); };
+
+    iframe.onload = () => {
+      const target = doc.body;
+
+      // ننتظر تحميل خطوط Google Fonts جوه الـ iframe قبل التصوير
+      const fontsReady = doc.fonts ? doc.fonts.ready : Promise.resolve();
+
+      fontsReady.then(() => new Promise(r => setTimeout(r, 600))).then(() => {
+        html2pdf().set({
+          margin: 0,
+          filename: 'LivingMood_Quote.pdf',
+          html2canvas: {
+            scale: 2,
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#ffffff',
+            windowWidth: 794
+          },
+          jsPDF: { unit:'mm', format:'a4', orientation:'portrait' },
+          pagebreak: { mode: ['avoid-all','css','legacy'] }
+        }).from(target).save()
+          .then(cleanup)
+          .catch(err => {
+            alert_('alert-save','err','تعذر إنشاء PDF: '+err.message);
+            cleanup();
+          });
+      });
+    };
+
+    // fallback لو onload متأخر جدًا
+    setTimeout(() => { if(document.body.contains(iframe)) iframe.onload && iframe.onload(); }, 50);
   }
 };
 
