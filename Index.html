@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial; margin: 0; background: #f3f4f1; color: #17211d; }
+    main { padding: 24px; }
+    input, select, textarea { width: 100%; padding: 10px; margin: 6px 0 12px; border: 1px solid #ccd6d0; border-radius: 8px; }
+    button { padding: 10px 16px; border: 0; border-radius: 8px; background: #2f6f5b; color: white; font-weight: bold; cursor: pointer; }
+    table { width: 100%; border-collapse: collapse; background: white; margin-top: 18px; }
+    th { background: #2f6f5b; color: white; padding: 10px; }
+    td { border: 1px solid #dde4df; padding: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Living Mood Quotation</h1>
+
+  <div class="grid">
+    <label>اللغة<select id="language"><option value="ar">عربي</option><option value="en">English</option></select></label>
+    <label>اسم العميل<input id="customerName"></label>
+    <label>رقم التليفون<input id="customerPhone"></label>
+    <label>موجهه الي<input id="directedTo"></label>
+    <label>العنوان<input id="address"></label>
+  </div>
+
+  <button onclick="addRow()">Add Row</button>
+  <button onclick="save()">Create Sheet</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>النموذج</th><th>الوحدة</th><th>المطلوب تنفيذه</th>
+        <th>عدد</th><th>السعر</th><th>الإجمالي</th><th>ملاحظات</th><th></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <p id="status"></p>
+</main>
+
+<script>
+function addRow() {
+  rows.insertAdjacentHTML('beforeend', `
+    <tr>
+      <td><input data-f="model"></td>
+      <td><input data-f="unit"></td>
+      <td><textarea data-f="description"></textarea></td>
+      <td><input data-f="quantity" type="number" value="1" oninput="calc(this)"></td>
+      <td><input data-f="price" type="number" oninput="calc(this)"></td>
+      <td data-total>0</td>
+      <td><textarea data-f="notes"></textarea></td>
+      <td><button onclick="this.closest('tr').remove()">حذف</button></td>
+    </tr>
+  `);
+}
+
+function calc(el) {
+  const tr = el.closest('tr');
+  const qty = Number(tr.querySelector('[data-f="quantity"]').value || 0);
+  const price = Number(tr.querySelector('[data-f="price"]').value || 0);
+  tr.querySelector('[data-total]').textContent = qty * price;
+}
+
+function collectRows() {
+  return [...rows.querySelectorAll('tr')].map(tr => {
+    const obj = {};
+    tr.querySelectorAll('[data-f]').forEach(i => obj[i.dataset.f] = i.value);
+    return obj;
+  });
+}
+
+function save() {
+  const data = {
+    language: language.value,
+    customerName: customerName.value,
+    customerPhone: customerPhone.value,
+    directedTo: directedTo.value,
+    address: address.value,
+    rows: collectRows()
+  };
+
+  status.textContent = 'جاري الحفظ...';
+
+  google.script.run
+    .withSuccessHandler(res => {
+      status.innerHTML = `تم إنشاء الشيت: <a href="${res.url}" target="_blank">${res.sheetName}</a>`;
+    })
+    .withFailureHandler(err => status.textContent = err.message)
+    .createQuotation(data);
+}
+
+addRow();
+</script>
+</body>
+</html>
