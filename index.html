@@ -692,66 +692,37 @@ const API = {
 /* ─── PDF / Print ─── */
 const PDF = {
   downloadAndPrint(){
-    loading('جاري تحضير PDF...');
+    const target = document.querySelector('#preview-inner table.items') 
+      ? document.getElementById('preview-inner')
+      : null;
 
-    // نبني المحتوى مباشرة جوه نفس الصفحة (مش iframe ومش نافذة جديدة) — أكثر توافقًا مع iOS
-    const container = document.createElement('div');
-    container.id = '__pdf_render_target';
-    container.style.position = 'absolute';
-    container.style.top = '0';
-    container.style.left = '0';
-    container.style.width = '794px';
-    container.style.background = '#fff';
-    container.style.zIndex = '99999';
-    container.style.visibility = 'hidden';
-    container.style.pointerEvents = 'none';
-
-    // نطبع فقط body الداخلية من buildPdfHtml بدون <html><head> كاملة
-    const fullHtml = buildPdfHtml(true, false);
-    const parser = new DOMParser();
-    const parsedDoc = parser.parseFromString(fullHtml, 'text/html');
-    const styleTag = parsedDoc.querySelector('style');
-    const bodyContent = parsedDoc.body.innerHTML;
-
-    if(styleTag){
-      const styleClone = document.createElement('style');
-      styleClone.textContent = styleTag.textContent;
-      styleClone.setAttribute('data-pdf-style','1');
-      document.head.appendChild(styleClone);
+    if(!target){
+      alert_('alert-save','err','افتح المعاينة أولاً قبل تحميل PDF');
+      return;
     }
 
-    container.innerHTML = bodyContent;
-    document.body.appendChild(container);
+    loading('جاري تحضير PDF...');
 
-    const cleanup = () => {
-      try{ container.remove(); }catch(e){}
-      try{ document.querySelectorAll('style[data-pdf-style]').forEach(s=>s.remove()); }catch(e){}
-      loaded();
-    };
+    // نأخذ عنصر الـ body الداخلي بتاع buildPdfHtml المرسوم بالفعل وعلى الشاشة (مفيش مشاكل visibility)
+    const printArea = target.querySelector('body > div') || target;
 
-    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-
-    fontsReady.then(() => new Promise(r => setTimeout(r, 600))).then(() => {
-      container.style.visibility = 'visible';
-      html2pdf().set({
-        margin: 0,
-        filename: 'LivingMood_Quote.pdf',
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff',
-          windowWidth: 794
-        },
-        jsPDF: { unit:'mm', format:'a4', orientation:'portrait' },
-        pagebreak: { mode: ['avoid-all','css','legacy'] }
-      }).from(container).save()
-        .then(cleanup)
-        .catch(err => {
-          alert_('alert-save','err','تعذر إنشاء PDF: '+err.message);
-          cleanup();
-        });
-    });
+    html2pdf().set({
+      margin: 5,
+      filename: 'LivingMood_Quote.pdf',
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      },
+      jsPDF: { unit:'mm', format:'a4', orientation:'portrait' },
+      pagebreak: { mode: ['avoid-all','css','legacy'] }
+    }).from(printArea).save()
+      .then(loaded)
+      .catch(err => {
+        alert_('alert-save','err','تعذر إنشاء PDF: '+err.message);
+        loaded();
+      });
   }
 };
 /* ─── init ─── */
