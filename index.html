@@ -374,7 +374,7 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
     tbody+=`
       <tr style="background:${bg};border-bottom:1px solid #D9D0C4;">
         <td style="padding:8px 7px;text-align:center;color:#6B5E4E;font-size:11px;">${i+1}</td>
-        <td style="padding:8px 7px;"><span style="display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;background:#2C5F3A;">${h(r.category)}</span></td>
+        <td style="padding:8px 7px;"><span style="display:inline-block;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:700;color:#fff;background:#2C5F3A;white-space:nowrap;">${h(r.category)}</span></td>
         <td style="padding:8px 7px;">${h(r.unit)||'—'}</td>
         <td style="padding:8px 7px;">${desc}</td>
         <td style="padding:8px 7px;text-align:center;direction:ltr;">${r.qty||0}</td>
@@ -460,7 +460,7 @@ u + #body .notes-box, #MessageViewBody .notes-box { display:block !important; ma
     <thead>
       <tr>
         <th style="width:24px;">#</th>
-        <th style="width:72px;">النموذج</th>
+        <th style="width:130px;">النموذج</th>
         <th style="width:56px;">الوحدة</th>
         <th style="min-width:180px;">المطلوب تنفيذه</th>
         <th style="width:36px;text-align:center;">عدد</th>
