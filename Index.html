@@ -3,94 +3,179 @@
 <head>
   <base target="_top">
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Living Mood Quotation</title>
   <style>
-    body { font-family: Arial; margin: 0; background: #f3f4f1; color: #17211d; }
-    main { padding: 24px; }
-    input, select, textarea { width: 100%; padding: 10px; margin: 6px 0 12px; border: 1px solid #ccd6d0; border-radius: 8px; }
-    button { padding: 10px 16px; border: 0; border-radius: 8px; background: #2f6f5b; color: white; font-weight: bold; cursor: pointer; }
-    table { width: 100%; border-collapse: collapse; background: white; margin-top: 18px; }
-    th { background: #2f6f5b; color: white; padding: 10px; }
-    td { border: 1px solid #dde4df; padding: 8px; }
-    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    body{margin:0;background:#F3EFEA;color:#1d2420;font-family:Arial,Tahoma,sans-serif}
+    .app{min-height:100vh;display:grid;grid-template-columns:300px 1fr}
+    aside{background:#1f4d3f;color:white;padding:28px}
+    .logo{width:130px;height:130px;border:2px solid #ffffff66;border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;font-size:22px;font-weight:bold;text-align:center;margin-bottom:20px}
+    main{padding:28px}
+    h1{font-family:Georgia,serif;font-size:32px;margin:0 0 10px}
+    .top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    button{border:0;border-radius:8px;min-height:42px;padding:0 16px;background:#2f6f5b;color:white;font-weight:bold;cursor:pointer}
+    button.gold{background:#c8a45d;color:#21180a}
+    button.gray{background:#e6ded5;color:#1f4d3f}
+    button.red{background:#b3261e}
+    button:disabled{opacity:.55;cursor:wait}
+    .section{background:#fffaf3cc;border:1px solid #ddd4ca;border-radius:8px;padding:18px;margin-bottom:18px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    label{display:grid;gap:6px;color:#68736d;font-size:13px;font-weight:bold}
+    input,textarea{width:100%;border:1px solid #ddd4ca;border-radius:8px;min-height:42px;padding:9px 11px;box-sizing:border-box}
+    textarea{resize:vertical}
+    table{width:100%;min-width:1000px;border-collapse:collapse;background:white}
+    .tablewrap{overflow-x:auto;border:1px solid #ddd4ca;border-radius:8px}
+    th,td{border-bottom:1px solid #ddd4ca;padding:10px;vertical-align:top}
+    th{background:#2f6f5b;color:white;text-align:center}
+    tbody tr:nth-child(even) td{background:#f8f5f0}
+    .total{text-align:center;font-weight:bold}
+    .status{font-weight:bold;color:#68736d}
+    .success{color:#2f6f5b}.error{color:#b3261e}
+    @media(max-width:900px){.app{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
   </style>
 </head>
 <body>
-<main>
-  <h1>Living Mood Quotation</h1>
+<div class="app">
+  <aside>
+    <div class="logo">Living<br>Mood</div>
+    <h1>Living Mood</h1>
+    <p>Quotation Template</p>
+    <button class="gold" onclick="saveQuotation('pdf')">PDF</button>
+    <button onclick="sendWhatsApp()">WhatsApp</button>
+  </aside>
 
-  <div class="grid">
-    <label>اللغة<select id="language"><option value="ar">عربي</option><option value="en">English</option></select></label>
-    <label>اسم العميل<input id="customerName"></label>
-    <label>رقم التليفون<input id="customerPhone"></label>
-    <label>موجهه الي<input id="directedTo"></label>
-    <label>العنوان<input id="address"></label>
-  </div>
+  <main>
+    <div class="top">
+      <h1>Quotation</h1>
+      <div class="actions">
+        <button class="gray" onclick="addRow()">+ Add Row</button>
+        <button id="saveBtn" onclick="saveQuotation('sheet')">Create Sheet</button>
+        <button class="gold" onclick="saveQuotation('pdf')">Export PDF</button>
+      </div>
+    </div>
 
-  <button onclick="addRow()">Add Row</button>
-  <button onclick="save()">Create Sheet</button>
+    <section class="section">
+      <div class="grid">
+        <label>اسم العميل<input id="customerName"></label>
+        <label>رقم العميل<input id="customerPhone" value="1000351597"></label>
+        <label>موجهه الي<input id="directedTo"></label>
+        <label>العنوان<input id="address"></label>
+      </div>
+    </section>
 
-  <table>
-    <thead>
-      <tr>
-        <th>النموذج</th><th>الوحدة</th><th>المطلوب تنفيذه</th>
-        <th>عدد</th><th>السعر</th><th>الإجمالي</th><th>ملاحظات</th><th></th>
-      </tr>
-    </thead>
-    <tbody id="rows"></tbody>
-  </table>
+    <section class="section">
+      <p>نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
+      <p>الاسعار مرتبطة بسعر الدولار اليوم 52 جنية مصري وسعر البنزين واي تغيير في تكلفة التشغيل يضاف في حينها , شكرا لكم</p>
+      <p>الاسعار وضحت بناءا علي الرسم الهندسي وال 3D واي تعديل في المقاسات او التصميم يغير من الاسعار وقت التنفيذ</p>
+      <p>شكرا لكم</p>
+    </section>
 
-  <p id="status"></p>
-</main>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th>النموذج</th><th>الوحدة</th><th>المطلوب تنفيذه</th>
+            <th>عدد</th><th>السعر</th><th>الإجمالي</th><th>ملاحظات</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+        <tfoot>
+          <tr><td colspan="5" class="total">TOTAL</td><td id="grandTotal" class="total">0</td><td colspan="2"></td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p id="status" class="status"></p>
+  </main>
+</div>
+
+<template id="rowTpl">
+  <tr>
+    <td><input data-field="model" placeholder="DOORS"></td>
+    <td><input data-field="unit" placeholder="ابواب"></td>
+    <td><textarea data-field="description" placeholder="المطلوب تنفيذه"></textarea></td>
+    <td><input data-field="quantity" type="number" value="1" oninput="calc()"></td>
+    <td><input data-field="price" type="number" oninput="calc()"></td>
+    <td class="line total">0</td>
+    <td><textarea data-field="notes"></textarea></td>
+    <td><button class="red" onclick="removeRow(this)">حذف</button></td>
+  </tr>
+</template>
 
 <script>
-function addRow() {
-  rows.insertAdjacentHTML('beforeend', `
-    <tr>
-      <td><input data-f="model"></td>
-      <td><input data-f="unit"></td>
-      <td><textarea data-f="description"></textarea></td>
-      <td><input data-f="quantity" type="number" value="1" oninput="calc(this)"></td>
-      <td><input data-f="price" type="number" oninput="calc(this)"></td>
-      <td data-total>0</td>
-      <td><textarea data-f="notes"></textarea></td>
-      <td><button onclick="this.closest('tr').remove()">حذف</button></td>
-    </tr>
-  `);
+let lastResult = null;
+
+function addRow(){
+  rows.appendChild(rowTpl.content.firstElementChild.cloneNode(true));
+  calc();
 }
 
-function calc(el) {
-  const tr = el.closest('tr');
-  const qty = Number(tr.querySelector('[data-f="quantity"]').value || 0);
-  const price = Number(tr.querySelector('[data-f="price"]').value || 0);
-  tr.querySelector('[data-total]').textContent = qty * price;
+function removeRow(btn){
+  if(rows.children.length === 1){setStatus('لازم يكون فيه سطر واحد على الأقل','error');return}
+  btn.closest('tr').remove();
+  calc();
 }
 
-function collectRows() {
-  return [...rows.querySelectorAll('tr')].map(tr => {
-    const obj = {};
-    tr.querySelectorAll('[data-f]').forEach(i => obj[i.dataset.f] = i.value);
-    return obj;
+function calc(){
+  let total = 0;
+  rows.querySelectorAll('tr').forEach(tr=>{
+    const q = Number(tr.querySelector('[data-field="quantity"]').value || 0);
+    const p = Number(tr.querySelector('[data-field="price"]').value || 0);
+    const line = q * p;
+    total += line;
+    tr.querySelector('.line').textContent = line.toLocaleString('en-US');
   });
+  grandTotal.textContent = total.toLocaleString('en-US');
 }
 
-function save() {
-  const data = {
-    language: language.value,
-    customerName: customerName.value,
-    customerPhone: customerPhone.value,
-    directedTo: directedTo.value,
-    address: address.value,
-    rows: collectRows()
+function payload(){
+  return {
+    customerName: customerName.value.trim(),
+    customerPhone: customerPhone.value.trim(),
+    directedTo: directedTo.value.trim(),
+    address: address.value.trim(),
+    rows:[...rows.querySelectorAll('tr')].map(tr=>{
+      const obj = {};
+      tr.querySelectorAll('[data-field]').forEach(i=>obj[i.dataset.field]=i.value);
+      return obj;
+    })
   };
+}
 
-  status.textContent = 'جاري الحفظ...';
+function saveQuotation(action){
+  const data = payload();
+  if(!data.customerName){setStatus('اكتب اسم العميل الأول','error');return}
+
+  saveBtn.disabled = true;
+  setStatus(action === 'pdf' ? 'جاري تجهيز PDF...' : 'جاري إنشاء الشيت...');
 
   google.script.run
-    .withSuccessHandler(res => {
-      status.innerHTML = `تم إنشاء الشيت: <a href="${res.url}" target="_blank">${res.sheetName}</a>`;
+    .withSuccessHandler(res=>{
+      saveBtn.disabled = false;
+      if(!res.ok){setStatus(res.error,'error');return}
+      lastResult = res;
+      setStatus('تم إنشاء الكوتيشن بنجاح','success');
+      window.open(action === 'pdf' ? res.pdfUrl : res.sheetUrl, '_blank');
     })
-    .withFailureHandler(err => status.textContent = err.message)
+    .withFailureHandler(err=>{
+      saveBtn.disabled = false;
+      setStatus(err.message || 'حصل خطأ','error');
+    })
     .createQuotation(data);
+}
+
+function sendWhatsApp(){
+  if(lastResult && lastResult.whatsappUrl){
+    window.open(lastResult.whatsappUrl,'_blank');
+    return;
+  }
+  window.open('https://wa.me/201000351597?text=' + encodeURIComponent('Living Mood Quotation'), '_blank');
+}
+
+function setStatus(msg,type=''){
+  status.textContent = msg;
+  status.className = 'status ' + type;
 }
 
 addRow();
