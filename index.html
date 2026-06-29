@@ -501,7 +501,7 @@ const Q = {
       const tr=document.createElement('tr');
       tr.innerHTML=`
         <td style="text-align:center;color:var(--mid);font-size:11px;">${i+1}</td>
-        <td><input type="text" value="${h(r.category)}" onchange="Q.set(${r._id},'category',this.value)" placeholder="أبواب"/></td>
+        <td><input type="text" value="${h(r.category)}" onchange="Q.set(${r._id},'category',this.value)" placeholder="Doors"/></td>
         <td><input type="text" value="${h(r.unit)}"     onchange="Q.set(${r._id},'unit',this.value)"     placeholder="الوحده"/></td>
         <td><textarea         onchange="Q.set(${r._id},'description',this.value)" placeholder="اكتب وصف العمل هنا...">${h(r.description)}</textarea></td>
         <td><input type="number" min="0" value="${r.qty}"   onchange="Q.setNum(${r._id},'qty',this.value)"/></td>
