@@ -419,14 +419,14 @@ const printScript = '';
     .date-row { font-size:12px; color:#6B5E4E; direction:ltr; text-align:left; margin-bottom:14px; }
     .intro { font-size:13px; color:#6B5E4E; line-height:1.9; text-align:center; margin-bottom:14px; }
 
-table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
-    .items-wrap { overflow-x:visible; }
+table.items { width:100%; min-width:760px; border-collapse:collapse; font-size:13px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
+    .items-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
 
 
     table.items thead tr { background:#2C5F3A; color:#fff; }
-    table.items thead th { padding:6px 4px; text-align:right; font-weight:600; white-space:normal; font-size:11px; }
+    table.items thead th { padding:6px 4px; text-align:right; font-weight:600; white-space:nowrap; font-size:11px; }
     table.items thead th.ltr { direction:ltr; text-align:left; }
-    table.items tbody td { padding:6px 4px; vertical-align:top; word-wrap:break-word; overflow-wrap:break-word; word-break:break-word; font-size:11px; }
+    table.items tbody td { padding:6px 4px; vertical-align:top; word-wrap:break-word; overflow-wrap:break-word; word-break:break-word; font-size:11px; white-space:nowrap; }  
 table.items tbody td:nth-child(4) { white-space:normal; min-width:160px; word-break:normal; overflow-wrap:break-word; line-height:1.6; }
     table.items tfoot tr { background:#1E1A15; color:#D4B483; }
     table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
