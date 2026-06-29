@@ -420,6 +420,40 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
 
 table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
     .items-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+
+@media screen and (max-width:600px) {
+  table.items thead { display:none; }
+  table.items, table.items tbody, table.items tr, table.items td { display:block; width:100%; }
+  table.items tbody tr {
+    background:#fff !important;
+    border:1px solid #D9D0C4;
+    border-radius:8px;
+    margin-bottom:12px;
+    padding:10px;
+    box-shadow:0 2px 8px rgba(30,26,21,.08);
+  }
+  table.items tbody td { padding:4px 8px; border:none; font-size:12px; }
+  table.items tbody td:before {
+    display:inline-block;
+    font-weight:700;
+    color:#6B5E4E;
+    font-size:11px;
+    margin-left:6px;
+    min-width:70px;
+  }
+  table.items tbody td:nth-child(1):before { content:'#'; }
+  table.items tbody td:nth-child(2):before { content:'النموذج:'; }
+  table.items tbody td:nth-child(3):before { content:'الوحدة:'; }
+  table.items tbody td:nth-child(4) { background:#F3EFEA; border-radius:6px; padding:8px; margin:6px 0; line-height:1.8; }
+  table.items tbody td:nth-child(4):before { content:'التنفيذ:'; display:block; margin-bottom:4px; }
+  table.items tbody td:nth-child(5):before { content:'العدد:'; }
+  table.items tbody td:nth-child(6):before { content:'السعر:'; }
+  table.items tbody td:nth-child(7) { font-size:14px; font-weight:700; color:#2C5F3A; }
+  table.items tbody td:nth-child(7):before { content:'الإجمالي:'; color:#2C5F3A; }
+  table.items tbody td:nth-child(8):before { content:'ملاحظات:'; }
+  table.items tfoot tr { border-radius:8px; display:block; padding:10px; }
+  table.items tfoot td { display:block; }
+}
     table.items thead tr { background:#2C5F3A; color:#fff; }
     table.items thead th { padding:6px 4px; text-align:right; font-weight:600; white-space:normal; font-size:11px; }
     table.items thead th.ltr { direction:ltr; text-align:left; }
