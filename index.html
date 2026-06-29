@@ -378,8 +378,8 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
         <td style="padding:8px 7px;">${h(r.unit)||'—'}</td>
         <td style="padding:8px 7px;">${desc}</td>
         <td style="padding:8px 7px;text-align:center;direction:ltr;">${r.qty||0}</td>
-        <td style="padding:8px 7px;direction:ltr;text-align:left;">${fmt(r.price)}</td>
-        <td style="padding:8px 7px;direction:ltr;text-align:left;font-weight:700;">${fmt(tot)}</td>
+        <td style="padding:6px 4px;direction:ltr;text-align:left;font-size:11px;">${fmt(r.price)}</td>
+<td style="padding:6px 4px;direction:ltr;text-align:left;font-weight:700;font-size:11px;">${fmt(tot)}</td>
         <td style="padding:8px 7px;font-size:11px;">${nt}</td>
       </tr>`;
   });
@@ -418,12 +418,12 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
     .date-row { font-size:12px; color:#6B5E4E; direction:ltr; text-align:left; margin-bottom:14px; }
     .intro { font-size:13px; color:#6B5E4E; line-height:1.9; text-align:center; margin-bottom:14px; }
 
-table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:auto; display:table !important; }
+table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; table-layout:fixed; display:table !important; }
     .items-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
     table.items thead tr { background:#2C5F3A; color:#fff; }
-    table.items thead th { padding:9px 7px; text-align:right; font-weight:600; white-space:normal; }
+    table.items thead th { padding:6px 4px; text-align:right; font-weight:600; white-space:normal; font-size:11px; }
     table.items thead th.ltr { direction:ltr; text-align:left; }
-    table.items tbody td { padding:8px 7px; vertical-align:top; word-wrap:break-word; overflow-wrap:break-word; word-break:break-word; }
+    table.items tbody td { padding:6px 4px; vertical-align:top; word-wrap:break-word; overflow-wrap:break-word; word-break:break-word; font-size:11px; }
 table.items tbody td:nth-child(4) { white-space:normal; min-width:120px; word-break:break-word; }
     table.items tfoot tr { background:#1E1A15; color:#D4B483; }
     table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
@@ -464,8 +464,8 @@ u + #body .notes-box, #MessageViewBody .notes-box { display:block !important; ma
         <th style="width:56px;">الوحدة</th>
         <th style="min-width:180px;">المطلوب تنفيذه</th>
         <th style="width:36px;text-align:center;">عدد</th>
-        <th class="ltr" style="width:72px;">السعر</th>
-        <th class="ltr" style="width:82px;">الإجمالي</th>
+        <th class="ltr" style="width:60px;">السعر</th>
+<th class="ltr" style="width:70px;">الإجمالي</th>
         <th style="width:88px;">ملاحظات</th>
       </tr>
     </thead>
