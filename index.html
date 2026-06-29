@@ -8,13 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
 
-<!-- ════════════════════════════════════════════════
-     CONFIG — عدّل هنا بس
-════════════════════════════════════════════════ -->
 <script>
   const CFG = {
     appsScriptUrl : 'https://script.google.com/macros/s/AKfycbyYv6_Ewhit7Ys7A7OBiL8IifDN4PDTZUxmpEOQW37zI_MqVl2f6vIJr6w3bwLzJb1GoA/exec',
-    whatsappPhone : '201000351597',   // رقم واتساب كامل مع كود الدولة بدون +
+    whatsappPhone : '201000351597',
     defaultDollar : '52',
     noteLines: [
       'الأسعار مرتبطة بسعر الدولار اليوم {DOLLAR} جنيه مصري وسعر البنزين وأي تغيير في تكلفة التشغيل يضاف في حينها.',
@@ -24,19 +21,15 @@
 </script>
 
 <style>
-/* ═══════════════════  TOKENS  ═══════════════════ */
 :root{
   --bg:#F3EFEA; --paper:#fff; --gold:#B8975A; --gold-l:#D4B483;
   --dark:#1E1A15; --mid:#6B5E4E; --border:#D9D0C4;
   --green:#2C5F3A; --radius:8px;
   --shadow:0 4px 24px rgba(30,26,21,.10);
 }
-
-/* ═══════════════════  RESET  ═══════════════════ */
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);font-family:'Cairo',sans-serif;color:var(--dark);min-height:100vh;font-size:14px;}
 
-/* ═══════════════════  LAYOUT  ══════════════════ */
 .topbar{background:var(--dark);color:var(--gold-l);text-align:center;padding:10px 20px;font-size:12px;letter-spacing:3px;text-transform:uppercase;font-family:'Playfair Display',serif;}
 .shell{max-width:980px;margin:0 auto;padding:28px 14px 80px;}
 
@@ -50,7 +43,6 @@ body{background:var(--bg);font-family:'Cairo',sans-serif;color:var(--dark);min-h
 .card-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
 .card-title::before{content:'';display:inline-block;width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0;}
 
-/* ═══════════════════  FORMS  ════════════════════ */
 .fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .field{display:flex;flex-direction:column;gap:5px;}
@@ -67,7 +59,6 @@ input[type=number]{direction:ltr;text-align:left;}
 input:focus,textarea:focus{border-color:var(--gold);background:#fff;}
 textarea{resize:vertical;line-height:1.65;}
 
-/* ═══════════════════  BUTTONS  ══════════════════ */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 24px;border:none;border-radius:6px;font-family:'Cairo',sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:opacity .15s,transform .1s;white-space:nowrap;}
 .btn:active{transform:scale(.97);}
 .btn-gold{background:var(--gold);color:#fff;}
@@ -79,14 +70,12 @@ textarea{resize:vertical;line-height:1.65;}
 .btn-danger{background:#dc3545;color:#fff;}
 .btn-full{width:100%;}
 
-/* ═══════════════════  STEPS  ════════════════════ */
 .steps{display:flex;margin-bottom:24px;border-radius:8px;overflow:hidden;box-shadow:var(--shadow);}
 .step{flex:1;text-align:center;padding:11px 6px;font-size:12px;font-weight:700;color:var(--mid);background:var(--paper);border-bottom:3px solid var(--border);cursor:default;transition:all .2s;}
 .step.active{color:var(--gold);border-color:var(--gold);}
 .step.done{color:var(--green);border-color:var(--green);cursor:pointer;}
 .step.done:hover{background:#f0ebe3;}
 
-/* ═══════════════════  TABLE  ════════════════════ */
 .q-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:14px;}
 table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 .q-tbl thead tr{background:var(--green);color:#fff;}
@@ -109,14 +98,12 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 
 .action-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;}
 
-/* ═══════════════════  CUSTOMER LIST  ═══════════ */
 .c-item{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:var(--bg);border:1px solid var(--border);border-radius:6px;margin-bottom:8px;cursor:pointer;transition:border-color .2s,background .2s;}
 .c-item:hover{border-color:var(--gold);background:#ece6dd;}
 .c-item .ci-name{font-weight:700;font-size:14px;}
 .c-item .ci-meta{font-size:11px;color:var(--mid);margin-top:2px;}
 .c-item .ci-badge{background:var(--gold);color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;flex-shrink:0;}
 
-/* ═══════════════════  BANNER  ═══════════════════ */
 .banner-info{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;}
 .banner-item .lbl{font-size:10px;color:var(--mid);letter-spacing:1px;font-weight:700;margin-bottom:3px;text-transform:uppercase;}
 .banner-item .val{font-size:18px;font-weight:700;}
@@ -124,25 +111,20 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 .dollar-inline{display:flex;align-items:center;gap:8px;}
 .dollar-inline input{width:80px;padding:7px 9px;font-size:14px;font-weight:700;}
 
-/* ═══════════════════  ALERTS  ═══════════════════ */
 .alert{padding:11px 16px;border-radius:6px;font-size:13px;margin-bottom:14px;display:none;}
 .alert-ok{background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
 .alert-err{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
 
-/* ═══════════════════  LOADING  ══════════════════ */
 #overlay{display:none;position:fixed;inset:0;background:rgba(30,26,21,.55);z-index:900;justify-content:center;align-items:center;flex-direction:column;gap:14px;color:var(--gold-l);font-size:15px;font-weight:600;}
 .spinner{width:46px;height:46px;border:4px solid rgba(184,151,90,.3);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* ═══════════════════  PAGES  ════════════════════ */
 .page{display:none;}
 .page.active{display:block;}
 
-/* ═══════════════════  PREVIEW WRAPPER  ══════════ */
 #preview-box{margin-top:14px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#fff;}
 #preview-inner{background:#fff;}
 
-/* ═══════════════════  MOBILE  ═══════════════════ */
 @media(max-width:640px){
   .fg3,.fg2{grid-template-columns:1fr;}
   .card{padding:18px 14px;}
@@ -170,16 +152,14 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 
 <div class="shell">
 
-  <!-- BRAND -->
   <div class="brand">
     <div class="brand-name">Living <span>Mood</span></div>
     <div class="brand-tagline">interior design &amp; furniture</div>
     <div class="brand-divider"></div>
   </div>
 
-  <!-- ════ PAGE 1: HOME ════ -->
+  <!-- PAGE 1: HOME -->
   <div class="page active" id="pg-home">
-
     <div class="card">
       <div class="card-title">إنشاء كوتيشن جديد</div>
       <div id="alert-create" class="alert"></div>
@@ -195,30 +175,26 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
         <div class="field">
           <label>سعر الدولار (جنيه)</label>
           <input type="number" id="inp-dollar" placeholder="52" value="52" min="1"/>
-          <span class="note">يظهر في الملاحظات بالـ PDF والواتساب</span>
+          <span class="note">يظهر في الملاحظات بالـ PDF</span>
         </div>
       </div>
       <div style="margin-top:18px;display:flex;justify-content:flex-end;">
         <button class="btn btn-gold" onclick="UI.createQuote()">✦ إنشاء وبدء الكوتيشن</button>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">الكوتيشنات السابقة</div>
       <div id="c-list"><div style="color:var(--mid);text-align:center;padding:24px;font-size:13px;">جاري التحميل...</div></div>
     </div>
+  </div>
 
-  </div><!-- /pg-home -->
-
-  <!-- ════ PAGE 2: EDITOR ════ -->
+  <!-- PAGE 2: EDITOR -->
   <div class="page" id="pg-editor">
-
     <div class="steps">
       <div class="step done" onclick="UI.goHome()">← الرئيسية</div>
       <div class="step active">تحرير الكوتيشن</div>
       <div class="step">معاينة وإرسال</div>
     </div>
-
     <div class="card" style="padding:18px 22px;">
       <div class="banner-info">
         <div style="display:flex;gap:28px;flex-wrap:wrap;">
@@ -238,7 +214,6 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
         </div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">بنود عرض السعر</div>
       <div id="alert-save" class="alert"></div>
@@ -263,7 +238,7 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
       <button class="btn btn-outline btn-sm" onclick="Q.addRow()" style="margin-bottom:18px;">+ إضافة سطر</button>
       <div class="grand-bar">
         <span>الإجمالي الكلي</span>
-        <span class="amt" id="grand-total">٠ جنيه</span>
+        <span class="amt" id="grand-total">0 جنيه</span>
       </div>
       <div class="action-bar">
         <button class="btn btn-outline" onclick="UI.goHome()">← رجوع</button>
@@ -271,46 +246,39 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
         <button class="btn btn-gold" onclick="UI.showPreview()">👁 معاينة وإرسال</button>
       </div>
     </div>
+  </div>
 
-  </div><!-- /pg-editor -->
-
-  <!-- ════ PAGE 3: PREVIEW ════ -->
+  <!-- PAGE 3: PREVIEW -->
   <div class="page" id="pg-preview">
-
     <div class="steps">
       <div class="step done" onclick="UI.goHome()">← الرئيسية</div>
       <div class="step done" onclick="UI.goEditor()">تحرير الكوتيشن</div>
       <div class="step active">معاينة وإرسال</div>
     </div>
-
     <div class="card" style="padding:12px 16px;margin-bottom:0;">
       <div class="action-bar" style="margin-top:0;">
         <button class="btn btn-outline" onclick="UI.goEditor()">← تعديل</button>
         <button class="btn btn-dark" onclick="PDF.download()">⬇ تحميل / طباعة PDF</button>
         <button class="btn btn-green" onclick="WA.send()">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.523 5.847L0 24l6.335-1.507A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.024-1.378l-.36-.214-3.758.895.908-3.653-.234-.376A9.818 9.818 0 0112 2.182c5.424 0 9.818 4.394 9.818 9.818 0 5.425-4.394 9.818-9.818 9.818z"/></svg>
-          إرسال واتساب
+          إرسال PDF واتساب
         </button>
       </div>
     </div>
-
     <div id="preview-box">
       <div id="preview-inner"></div>
     </div>
-
-  </div><!-- /pg-preview -->
+  </div>
 
 </div><!-- /shell -->
 
-<!-- ════════════════════════════════════════════════
-     JAVASCRIPT
-════════════════════════════════════════════════ -->
 <script>
 
 /* ─── helpers ─── */
 const $  = id => document.getElementById(id);
 const h  = s  => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-const fmt= n  => Number(n||0).toLocaleString('ar-EG');
+// ✅ أرقام إنجليزية دايماً
+const fmt= n  => Number(n||0).toLocaleString('en-US');
 const num= v  => parseFloat((v+'').replace(/,/g,''))||0;
 
 function loading(msg){ $('overlay-msg').textContent=msg||'جاري المعالجة...'; $('overlay').style.display='flex'; }
@@ -323,19 +291,154 @@ function alert_(id,type,msg){
 }
 
 /* ─── state ─── */
-let STATE = {
-  customer: null,
-  rows: []
-};
+let STATE = { customer: null, rows: [] };
 
 function dollar(){ return $('b-dollar')?.value || $('inp-dollar')?.value || CFG.defaultDollar; }
+
+/* ─── PDF HTML builder (shared between preview, download, whatsapp) ─── */
+function buildPdfHtml(forPrint){
+  const c   = STATE.customer || {};
+  const dlr = dollar();
+  const date= new Date().toLocaleDateString('en-GB');
+  const notes = CFG.noteLines.map(l=>'• '+l.replace('{DOLLAR}',dlr)).join('<br>');
+
+  let tbody='';
+  STATE.rows.forEach((r,i)=>{
+    const tot=Q.tot(r);
+    const bg=i%2===0?'#ffffff':'#faf8f5';
+    const desc=(r.description||'—').replace(/\n/g,'<br>');
+    const nt  =(r.notes||'').replace(/\n/g,'<br>');
+    tbody+=`
+      <tr style="background:${bg};border-bottom:1px solid #D9D0C4;">
+        <td style="padding:8px 7px;text-align:center;color:#6B5E4E;font-size:11px;">${i+1}</td>
+        <td style="padding:8px 7px;"><span style="display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;background:#2C5F3A;">${h(r.category)}</span></td>
+        <td style="padding:8px 7px;">${h(r.unit)||'—'}</td>
+        <td style="padding:8px 7px;">${desc}</td>
+        <td style="padding:8px 7px;text-align:center;direction:ltr;">${r.qty||0}</td>
+        <td style="padding:8px 7px;direction:ltr;text-align:left;">${fmt(r.price)}</td>
+        <td style="padding:8px 7px;direction:ltr;text-align:left;font-weight:700;">${fmt(tot)}</td>
+        <td style="padding:8px 7px;font-size:11px;">${nt}</td>
+      </tr>`;
+  });
+
+  const nm = (c.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF-]/g,'');
+
+  const printScript = forPrint ? `<script>
+    document.fonts.ready.then(function(){
+      setTimeout(function(){ window.print(); }, 500);
+    });
+  <\/script>` : '';
+
+  return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <title>LivingMood_${nm}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Cairo','Arial',sans-serif; direction: rtl; color: #1E1A15; background:#fff; }
+    @page { size: A4; margin: 14mm 12mm; }
+    @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+
+    .hdr { display:flex; justify-content:space-between; align-items:flex-start;
+           border-bottom:2px solid #B8975A; padding-bottom:14px; margin-bottom:16px; }
+    .brand-title { font-family:'Playfair Display',Georgia,serif; font-size:36px;
+                   letter-spacing:4px; color:#1E1A15; direction:ltr; }
+    .brand-title span { color:#B8975A; }
+    .brand-sub { font-size:9px; letter-spacing:3px; color:#6B5E4E;
+                 text-transform:uppercase; margin-top:4px; direction:ltr; }
+    .date-box { font-size:12px; color:#6B5E4E; text-align:left; direction:ltr; }
+
+    .client-box { background:#F3EFEA; border-right:4px solid #B8975A;
+                  display:flex; margin-bottom:14px; }
+    .client-cell { padding:12px 16px; }
+    .client-lbl { font-size:10px; color:#6B5E4E; font-weight:700;
+                  letter-spacing:1px; margin-bottom:3px; text-transform:uppercase; }
+    .client-val { font-size:14px; font-weight:700; }
+
+    /* ✅ الجملة شمال مع 5px مسافة */
+    .intro { font-size:13px; color:#6B5E4E; margin-bottom:14px; line-height:1.9;
+             text-align:left; padding-right:5px; direction:rtl; }
+
+    table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; }
+    table.items thead tr { background:#2C5F3A; color:#fff; }
+    table.items thead th { padding:9px 7px; text-align:right; font-weight:600; white-space:nowrap; }
+    table.items thead th.ltr { direction:ltr; text-align:left; }
+    table.items tbody td { padding:8px 7px; vertical-align:top; }
+    table.items tfoot tr { background:#1E1A15; color:#D4B483; }
+    table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
+    table.items tfoot td.ltr { direction:ltr; text-align:left; }
+
+    .notes-box { background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px;
+                 padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1; margin-bottom:16px; }
+    .footer { text-align:center; font-size:13px; color:#B8975A;
+              font-family:'Playfair Display',Georgia,serif; letter-spacing:1px; direction:ltr; }
+  </style>
+</head>
+<body>
+<div style="padding:${forPrint?'0':'28px 32px 24px'};">
+
+  <div class="hdr">
+    <div>
+      <div class="brand-title">Living <span>Mood</span></div>
+      <div class="brand-sub">Interior Design &amp; Furniture</div>
+    </div>
+    <div class="date-box"><strong>التاريخ:</strong> ${date}</div>
+  </div>
+
+  <div class="client-box">
+    ${c.engineer ? `<div class="client-cell"><div class="client-lbl">موجه إلى</div><div class="client-val">${h(c.engineer)}</div></div>` : ''}
+    ${c.address  ? `<div class="client-cell"><div class="client-lbl">العنوان / المشروع</div><div class="client-val">${h(c.address)}</div></div>` : ''}
+  </div>
+
+  <p class="intro">نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
+
+  <table class="items">
+    <thead>
+      <tr>
+        <th style="width:24px;">#</th>
+        <th style="width:72px;">النموذج</th>
+        <th style="width:56px;">الوحدة</th>
+        <th>المطلوب تنفيذه</th>
+        <th style="width:36px;text-align:center;">عدد</th>
+        <th class="ltr" style="width:72px;">السعر</th>
+        <th class="ltr" style="width:82px;">الإجمالي</th>
+        <th style="width:88px;">ملاحظات</th>
+      </tr>
+    </thead>
+    <tbody>${tbody}</tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" style="text-align:right;">الإجمالي الكلي</td>
+        <td class="ltr">${fmt(Q.grand())}</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <div class="notes-box">${notes}</div>
+  <div class="footer">Thank you — Living Mood</div>
+
+</div>
+${printScript}
+</body>
+</html>`;
+}
 
 /* ─── UI navigation ─── */
 const UI = {
   show(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); $(id).classList.add('active'); },
-  goHome(){   this.show('pg-home');   API.listCustomers(); },
+  goHome(){   this.show('pg-home'); API.listCustomers(); },
   goEditor(){ this.show('pg-editor'); },
-  showPreview(){ PDF.build(); this.show('pg-preview'); },
+
+  // ✅ المعاينة مش بتحفظ — بس بتبني الـ HTML
+  showPreview(){
+    $('preview-inner').innerHTML = buildPdfHtml(false);
+    this.show('pg-preview');
+  },
 
   createQuote(){
     const eng = $('inp-engineer').value.trim();
@@ -437,6 +540,7 @@ const API = {
     }catch(e){ list.innerHTML=`<div style="color:#721c24;font-size:13px;text-align:center;padding:20px;">تعذر التحميل — ${e.message}</div>`; }
   },
 
+  // ✅ الحفظ اليدوي فقط — مش بيتعمل أوتوماتيك
   async save(){
     loading('جاري الحفظ...');
     try{
@@ -451,275 +555,24 @@ const API = {
   }
 };
 
-/* ─── PDF builder ─── */
+/* ─── PDF ─── */
 const PDF = {
-
-  /* بناء HTML الـ preview */
-  build(){
-    const c   = STATE.customer || {};
-    const dlr = dollar();
-    const date= new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
-    const notes = CFG.noteLines.map(l=>'• '+l.replace('{DOLLAR}',dlr)).join('<br>');
-
-    let tbody='';
-    STATE.rows.forEach((r,i)=>{
-      const tot=Q.tot(r);
-      const bg=i%2===0?'#ffffff':'#faf8f5';
-      const desc=(r.description||'—').replace(/\n/g,'<br>');
-      const nt  =(r.notes||'').replace(/\n/g,'<br>');
-      tbody+=`
-        <tr style="background:${bg};border-bottom:1px solid #D9D0C4;">
-          <td style="padding:7px 6px;text-align:center;color:#6B5E4E;font-size:11px;">${i+1}</td>
-          <td style="padding:7px 6px;"><span style="display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;background:#2C5F3A;">${h(r.category)}</span></td>
-          <td style="padding:7px 6px;">${h(r.unit)||'—'}</td>
-          <td style="padding:7px 6px;min-width:140px;">${desc}</td>
-          <td style="padding:7px 6px;text-align:center;">${r.qty||0}</td>
-          <td style="padding:7px 6px;direction:ltr;text-align:left;">${fmt(r.price)}</td>
-          <td style="padding:7px 6px;direction:ltr;text-align:left;font-weight:700;">${fmt(tot)}</td>
-          <td style="padding:7px 6px;font-size:11px;">${nt}</td>
-        </tr>`;
-    });
-
-    $('preview-inner').innerHTML=`
-<div style="background:#fff;padding:36px 40px 32px;font-family:'Cairo',sans-serif;direction:rtl;color:#1E1A15;">
-  <table style="width:100%;border-collapse:collapse;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #B8975A;">
-    <tr>
-      <td style="vertical-align:top;text-align:right;">
-        <div style="font-family:'Playfair Display',Georgia,serif;font-size:34px;letter-spacing:4px;color:#1E1A15;direction:ltr;">Living <span style="color:#B8975A;">Mood</span></div>
-        <div style="font-size:9px;letter-spacing:3px;color:#6B5E4E;text-transform:uppercase;margin-top:3px;direction:ltr;">INTERIOR DESIGN &amp; FURNITURE</div>
-      </td>
-      <td style="vertical-align:top;text-align:left;direction:ltr;font-size:12px;color:#6B5E4E;">
-        <div><strong>التاريخ:</strong> ${date}</div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:100%;border-collapse:collapse;background:#F3EFEA;border-right:4px solid #B8975A;margin-bottom:16px;">
-    <tr>
-      ${c.engineer?`<td style="padding:12px 16px;vertical-align:top;"><div style="font-size:10px;color:#6B5E4E;font-weight:700;letter-spacing:1px;margin-bottom:3px;">موجه إلى</div><div style="font-size:14px;font-weight:700;">${h(c.engineer)}</div></td>`:''}
-      ${c.address ?`<td style="padding:12px 16px;vertical-align:top;"><div style="font-size:10px;color:#6B5E4E;font-weight:700;letter-spacing:1px;margin-bottom:3px;">العنوان / المشروع</div><div style="font-size:14px;font-weight:700;">${h(c.address)}</div></td>`:''}
-    </tr>
-  </table>
-  <p style="font-size:13px;color:#6B5E4E;margin-bottom:14px;line-height:1.9;">نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
-  <table style="width:100%;border-collapse:collapse;font-size:12px;direction:rtl;margin-bottom:16px;">
-    <thead>
-      <tr style="background:#2C5F3A;color:#fff;">
-        <th style="padding:8px 6px;text-align:right;width:26px;">#</th>
-        <th style="padding:8px 6px;text-align:right;width:75px;">النموذج</th>
-        <th style="padding:8px 6px;text-align:right;width:58px;">الوحدة</th>
-        <th style="padding:8px 6px;text-align:right;">المطلوب تنفيذه</th>
-        <th style="padding:8px 6px;text-align:center;width:38px;">عدد</th>
-        <th style="padding:8px 6px;text-align:left;direction:ltr;width:74px;">السعر</th>
-        <th style="padding:8px 6px;text-align:left;direction:ltr;width:84px;">الإجمالي</th>
-        <th style="padding:8px 6px;text-align:right;width:90px;">ملاحظات</th>
-      </tr>
-    </thead>
-    <tbody>${tbody}</tbody>
-    <tfoot>
-      <tr style="background:#1E1A15;color:#D4B483;">
-        <td colspan="6" style="padding:9px 6px;text-align:right;font-weight:700;font-size:13px;">الإجمالي الكلي</td>
-        <td style="padding:9px 6px;direction:ltr;text-align:left;font-weight:700;font-size:13px;">${fmt(Q.grand())}</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
-  <div style="background:#F3EFEA;border:1px solid #D9D0C4;border-radius:5px;padding:13px 16px;font-size:12px;color:#6B5E4E;line-height:2.1;margin-bottom:14px;">
-    ${notes}
-  </div>
-  <div style="text-align:center;font-size:13px;color:#B8975A;font-family:'Playfair Display',Georgia,serif;letter-spacing:1px;direction:ltr;">Thank you — Living Mood</div>
-</div>`;
-  },
-
-  /* ════════════════════════════════════════
-     PDF عن طريق نافذة طباعة — النتيجة مطابقة
-     للـ preview تماماً بدون أي تشويه للعربي
-  ════════════════════════════════════════ */
   download(){
-    const c   = STATE.customer || {};
-    const dlr = dollar();
-    const date= new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
-    const notes = CFG.noteLines.map(l=>'• '+l.replace('{DOLLAR}',dlr)).join('<br>');
-
-    let tbody='';
-    STATE.rows.forEach((r,i)=>{
-      const tot=Q.tot(r);
-      const bg=i%2===0?'#ffffff':'#faf8f5';
-      const desc=(r.description||'—').replace(/\n/g,'<br>');
-      const nt  =(r.notes||'').replace(/\n/g,'<br>');
-      tbody+=`
-        <tr style="background:${bg};border-bottom:1px solid #D9D0C4;">
-          <td style="padding:8px 6px;text-align:center;color:#6B5E4E;font-size:11px;">${i+1}</td>
-          <td style="padding:8px 6px;"><span style="display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;color:#fff;background:#2C5F3A;">${h(r.category)}</span></td>
-          <td style="padding:8px 6px;">${h(r.unit)||'—'}</td>
-          <td style="padding:8px 6px;">${desc}</td>
-          <td style="padding:8px 6px;text-align:center;">${r.qty||0}</td>
-          <td style="padding:8px 6px;direction:ltr;text-align:left;">${fmt(r.price)}</td>
-          <td style="padding:8px 6px;direction:ltr;text-align:left;font-weight:700;">${fmt(tot)}</td>
-          <td style="padding:8px 6px;font-size:11px;">${nt}</td>
-        </tr>`;
-    });
-
+    const c  = STATE.customer || {};
     const nm = (c.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF-]/g,'');
-
-    const html = `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8"/>
-  <title>LivingMood_${nm}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Cairo', 'Arial', sans-serif;
-      direction: rtl;
-      color: #1E1A15;
-      background: #fff;
-      padding: 0;
-      margin: 0;
-    }
-    @page {
-      size: A4;
-      margin: 14mm 12mm 14mm 12mm;
-    }
-    @media print {
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    }
-    .wrap { padding: 0; }
-
-    /* ── HEADER ── */
-    .hdr { display: flex; justify-content: space-between; align-items: flex-start;
-           border-bottom: 2px solid #B8975A; padding-bottom: 14px; margin-bottom: 16px; }
-    .brand-title { font-family: 'Playfair Display', Georgia, serif; font-size: 36px;
-                   letter-spacing: 4px; color: #1E1A15; direction: ltr; }
-    .brand-title span { color: #B8975A; }
-    .brand-sub { font-size: 9px; letter-spacing: 3px; color: #6B5E4E;
-                 text-transform: uppercase; margin-top: 4px; direction: ltr; }
-    .date-box { font-size: 12px; color: #6B5E4E; text-align: left; direction: ltr; }
-    .date-box strong { color: #1E1A15; }
-
-    /* ── CLIENT BOX ── */
-    .client-box {
-      background: #F3EFEA;
-      border-right: 4px solid #B8975A;
-      display: flex;
-      gap: 0;
-      margin-bottom: 14px;
-    }
-    .client-cell { padding: 12px 16px; }
-    .client-lbl { font-size: 10px; color: #6B5E4E; font-weight: 700;
-                  letter-spacing: 1px; margin-bottom: 3px; text-transform: uppercase; }
-    .client-val { font-size: 14px; font-weight: 700; }
-
-    /* ── INTRO ── */
-    .intro { font-size: 13px; color: #6B5E4E; margin-bottom: 14px; line-height: 1.9; }
-
-    /* ── TABLE ── */
-    table.items { width: 100%; border-collapse: collapse; font-size: 12px;
-                  direction: rtl; margin-bottom: 14px; }
-    table.items thead tr { background: #2C5F3A; color: #fff; }
-    table.items thead th { padding: 9px 7px; text-align: right; font-weight: 600;
-                           white-space: nowrap; }
-    table.items thead th.ltr { direction: ltr; text-align: left; }
-    table.items tbody td { padding: 8px 7px; vertical-align: top; }
-    table.items tbody td.ltr { direction: ltr; text-align: left; }
-    table.items tfoot tr { background: #1E1A15; color: #D4B483; }
-    table.items tfoot td { padding: 9px 7px; font-weight: 700; font-size: 13px; }
-    table.items tfoot td.ltr { direction: ltr; text-align: left; }
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 3px;
-           font-size: 10px; font-weight: 700; color: #fff; background: #2C5F3A; }
-
-    /* ── NOTES ── */
-    .notes-box { background: #F3EFEA; border: 1px solid #D9D0C4; border-radius: 5px;
-                 padding: 13px 16px; font-size: 12px; color: #6B5E4E;
-                 line-height: 2.1; margin-bottom: 16px; }
-
-    /* ── FOOTER ── */
-    .footer { text-align: center; font-size: 13px; color: #B8975A;
-              font-family: 'Playfair Display', Georgia, serif; letter-spacing: 1px;
-              direction: ltr; }
-  </style>
-</head>
-<body>
-<div class="wrap">
-
-  <!-- HEADER -->
-  <div class="hdr">
-    <div>
-      <div class="brand-title">Living <span>Mood</span></div>
-      <div class="brand-sub">Interior Design &amp; Furniture</div>
-    </div>
-    <div class="date-box"><strong>التاريخ:</strong> ${date}</div>
-  </div>
-
-  <!-- CLIENT -->
-  <div class="client-box">
-    ${c.engineer ? `<div class="client-cell"><div class="client-lbl">موجه إلى</div><div class="client-val">${h(c.engineer)}</div></div>` : ''}
-    ${c.address  ? `<div class="client-cell"><div class="client-lbl">العنوان / المشروع</div><div class="client-val">${h(c.address)}</div></div>` : ''}
-  </div>
-
-  <p class="intro">نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
-
-  <!-- ITEMS TABLE -->
-  <table class="items">
-    <thead>
-      <tr>
-        <th style="width:24px;">#</th>
-        <th style="width:72px;">النموذج</th>
-        <th style="width:56px;">الوحدة</th>
-        <th>المطلوب تنفيذه</th>
-        <th style="width:36px;text-align:center;">عدد</th>
-        <th class="ltr" style="width:72px;">السعر</th>
-        <th class="ltr" style="width:82px;">الإجمالي</th>
-        <th style="width:88px;">ملاحظات</th>
-      </tr>
-    </thead>
-    <tbody>${tbody}</tbody>
-    <tfoot>
-      <tr>
-        <td colspan="6" style="text-align:right;">الإجمالي الكلي</td>
-        <td class="ltr">${fmt(Q.grand())}</td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
-
-  <!-- NOTES -->
-  <div class="notes-box">${notes}</div>
-
-  <!-- FOOTER -->
-  <div class="footer">Thank you — Living Mood</div>
-
-</div>
-
-<script>
-  // انتظر تحميل الخطوط ثم اطبع
-  document.fonts.ready.then(function(){
-    setTimeout(function(){ window.print(); }, 400);
-  });
-<\/script>
-</body>
-</html>`;
-
     const win = window.open('', '_blank', 'width=900,height=700');
     if(!win){ alert('السماح بالـ Popups للموقع'); return; }
     win.document.open();
-    win.document.write(html);
+    win.document.write(buildPdfHtml(true));
     win.document.close();
   }
 };
 
-/* ─── WhatsApp ─── */
+/* ─── WhatsApp — بيبعت PDF عن طريق نافذة طباعة ─── */
 const WA = {
   send(){
-    const c   = STATE.customer || {};
-    const dlr = dollar();
-    const msg = encodeURIComponent(
-      `موجه إلى: ${c.engineer||'—'}\nالعنوان: ${c.address||'—'}\n\nالإجمالي: ${fmt(Q.grand())} جنيه\n\n`+
-      CFG.noteLines.map(l=>'• '+l.replace('{DOLLAR}',dlr)).join('\n')+
-      `\n\nLiving Mood — Interior Design & Furniture`
-    );
-    window.open(`https://wa.me/${CFG.whatsappPhone}?text=${msg}`,'_blank');
+    // نفس زرار الـ PDF بالظبط — المستخدم يطبع/يحفظ PDF ثم يبعته
+    PDF.download();
   }
 };
 
