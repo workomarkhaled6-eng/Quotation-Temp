@@ -423,14 +423,14 @@ function buildPdfHtml(forPrint){
     <div class="brand-sub">Interior Design &amp; Furniture</div>
   </div>
 
-  <!-- ② موجه إلى + العنوان كل واحد في سطر (label: value) -->
+  <!-- ② التاريخ فوق الموجه -->
+  <div class="date-row"><strong>التاريخ:</strong> ${date}</div>
+
+  <!-- ③ موجه إلى + العنوان كل واحد في سطر (label: value) -->
   <div class="client-box">
     ${c.engineer ? `<div class="client-row"><span class="client-lbl">موجه إلى:</span><span class="client-val">${h(c.engineer)}</span></div>` : ''}
     ${c.address  ? `<div class="client-row"><span class="client-lbl">العنوان / المشروع:</span><span class="client-val">${h(c.address)}</span></div>` : ''}
   </div>
-
-  <!-- ③ التاريخ تحت الموجه والعنوان -->
-  <div class="date-row"><strong>التاريخ:</strong> ${date}</div>
 
   <!-- ⑤ الجدول -->
   <table class="items">
@@ -547,8 +547,8 @@ const Q = {
         <td><input type="text" value="${h(r.category)}" onchange="Q.set(${r._id},'category',this.value)" placeholder="Doors"/></td>
         <td><input type="text" value="${h(r.unit)}"     onchange="Q.set(${r._id},'unit',this.value)"     placeholder="الوحده"/></td>
         <td><textarea         onchange="Q.set(${r._id},'description',this.value)" placeholder="اكتب وصف العمل هنا...">${h(r.description)}</textarea></td>
-        <td><input type="number" min="0" value="${r.qty}"   onchange="Q.setNum(${r._id},'qty',this.value)"/></td>
-        <td><input type="number" min="0" value="${r.price}" onchange="Q.setNum(${r._id},'price',this.value)"/></td>
+        <td><input type="text" inputmode="numeric" value="${r.qty}"   onchange="Q.setNum(${r._id},'qty',this.value)" onkeypress="return /[0-9.]/.test(event.key)" style="direction:ltr;text-align:left;"/></td>
+        <td><input type="text" inputmode="numeric" value="${r.price}" onchange="Q.setNum(${r._id},'price',this.value)" onkeypress="return /[0-9.]/.test(event.key)" style="direction:ltr;text-align:left;"/></td>
         <td class="num-cell">${fmt(this.tot(r))}</td>
         <td><textarea onchange="Q.set(${r._id},'notes',this.value)" placeholder="ملاحظة..." style="min-height:58px;">${h(r.notes)}</textarea></td>
         <td><button class="btn btn-danger btn-sm" onclick="Q.del(${r._id})">✕</button></td>`;
@@ -611,11 +611,37 @@ const PDF = {
   }
 };
 
-/* ─── WhatsApp — بيبعت PDF عن طريق نافذة طباعة ─── */
+/* ─── WhatsApp — يولد PDF ويفتح واتساب مباشرة ─── */
 const WA = {
-  send(){
-    // نفس زرار الـ PDF بالظبط — المستخدم يطبع/يحفظ PDF ثم يبعته
-    PDF.download();
+  async send(){
+    const c  = STATE.customer || {};
+    const nm = (c.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF-]/g,'');
+    const phone = CFG.whatsappPhone;
+
+    // افتح نافذة الطباعة للـ PDF
+    const win = window.open('', '_blank', 'width=900,height=700');
+    if(!win){ alert('السماح بالـ Popups للموقع'); return; }
+
+    // أضف زرار "بعد الطباعة افتح واتساب" في نافذة الـ PDF
+    const dlr = dollar();
+    const waMsg = encodeURIComponent(
+      `موجه إلى: ${c.engineer||'—'}\nالعنوان: ${c.address||'—'}\nالإجمالي: ${fmt(Q.grand())} جنيه\n\nLiving Mood — Interior Design & Furniture`
+    );
+    const waUrl = `https://wa.me/${phone}?text=${waMsg}`;
+
+    const html = buildPdfHtml(false).replace(
+      '</body>',
+      `<div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;display:flex;gap:12px;">
+        <button onclick="window.print()" style="background:#1E1A15;color:#D4B483;border:none;padding:12px 28px;font-size:14px;font-family:'Cairo',sans-serif;border-radius:6px;cursor:pointer;font-weight:700;">🖨 طباعة / حفظ PDF</button>
+        <button onclick="window.open('${waUrl}','_blank')" style="background:#25D366;color:#fff;border:none;padding:12px 28px;font-size:14px;font-family:'Cairo',sans-serif;border-radius:6px;cursor:pointer;font-weight:700;">📲 فتح واتساب</button>
+      </div>
+      <style>@media print{div[style*="position:fixed"]{display:none!important;}}</style>
+      </body>`
+    );
+
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
   }
 };
 
