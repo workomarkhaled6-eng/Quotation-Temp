@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 
 <script>
   const CFG = {
@@ -692,37 +692,22 @@ const API = {
 /* ─── PDF / Print ─── */
 const PDF = {
   downloadAndPrint(){
-    const target = document.querySelector('#preview-inner table.items') 
-      ? document.getElementById('preview-inner')
-      : null;
-
-    if(!target){
-      alert_('alert-save','err','افتح المعاينة أولاً قبل تحميل PDF');
+    const html = buildPdfHtml(true, false);
+    const w = window.open('', '_blank');
+    if(!w){
+      alert_('alert-save','err','المتصفح حجب فتح نافذة الطباعة، اسمح بالنوافذ المنبثقة وحاول تاني');
       return;
     }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
 
-    loading('جاري تحضير PDF...');
-
-    // نأخذ عنصر الـ body الداخلي بتاع buildPdfHtml المرسوم بالفعل وعلى الشاشة (مفيش مشاكل visibility)
-    const printArea = target.querySelector('body > div') || target;
-
-    html2pdf().set({
-      margin: 5,
-      filename: 'LivingMood_Quote.pdf',
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff'
-      },
-      jsPDF: { unit:'mm', format:'a4', orientation:'portrait' },
-      pagebreak: { mode: ['avoid-all','css','legacy'] }
-    }).from(printArea).save()
-      .then(loaded)
-      .catch(err => {
-        alert_('alert-save','err','تعذر إنشاء PDF: '+err.message);
-        loaded();
-      });
+    w.onload = () => {
+      setTimeout(() => {
+        w.focus();
+        w.print();
+      }, 400);
+    };
   }
 };
 /* ─── init ─── */
