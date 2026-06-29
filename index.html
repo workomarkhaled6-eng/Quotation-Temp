@@ -353,7 +353,7 @@ function goQuote(){
   document.getElementById('page-quote').classList.add('active');
 }
 
-function newRow(){ return { id:Date.now()+Math.random(), category:'أبواب', unit:'', description:'', qty:1, price:0, notes:'' }; }
+function newRow(){ return { id:Date.now()+Math.random(), category:'""', unit:'', description:'', qty:1, price:0, notes:'' }; }
 function addRow(){ rows.push(newRow()); renderTable(); }
 function deleteRow(id){ rows=rows.filter(r=>r.id!==id); renderTable(); }
 function calcTotal(r){ return num(r.qty)*num(r.price); }
