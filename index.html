@@ -113,9 +113,10 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:720px;}
 .c-item .ci-del:hover{background:#b02a37;}
 
 .banner-info{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;}
-.banner-item .lbl{font-size:10px;color:var(--mid);letter-spacing:1px;font-weight:700;margin-bottom:3px;text-transform:uppercase;}
-.banner-item .val{font-size:18px;font-weight:700;}
-.banner-item .val-sm{font-size:14px;font-weight:600;}
+.banner-item{display:flex;align-items:center;gap:6px;}
+.banner-item .lbl{font-size:13px;color:var(--mid);font-weight:700;text-transform:none;white-space:nowrap;}
+.banner-item .val{font-size:15px;font-weight:700;}
+.banner-item .val-sm{font-size:15px;font-weight:700;}
 .dollar-inline{display:flex;align-items:center;gap:8px;}
 .dollar-inline input{width:80px;padding:7px 9px;font-size:14px;font-weight:700;}
 
@@ -255,16 +256,16 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:720px;}
     </div>
     <div class="card" style="padding:18px 22px;">
       <div class="banner-info">
-       <div style="display:flex;flex-direction:column;gap:14px;">
-          <div class="banner-item">
-            <div class="lbl">موجه إلى</div>
-            <div class="val" id="b-engineer"></div>
-          </div>
-          <div class="banner-item">
-            <div class="lbl">العنوان / المشروع</div>
-            <div class="val-sm" id="b-address"></div>
-          </div>
-        </div>
+       <div style="display:flex;flex-direction:column;gap:10px;">
+  <div class="banner-item">
+    <div class="lbl">موجه إلى:</div>
+    <div class="val" id="b-engineer"></div>
+  </div>
+  <div class="banner-item">
+    <div class="lbl">العنوان / المشروع:</div>
+    <div class="val-sm" id="b-address"></div>
+  </div>
+</div>
         <div class="dollar-inline">
           <span style="font-size:12px;color:var(--mid);font-weight:600;">سعر الدولار:</span>
           <input type="number" id="b-dollar" value="52" min="1"/>
