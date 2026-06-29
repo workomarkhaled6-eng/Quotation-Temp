@@ -368,7 +368,7 @@ function renderTable(){
     tr.innerHTML=`
       <td style="text-align:center;color:var(--mid);font-size:12px;">${i+1}</td>
       <td><input type="text" value="${h(r.category)}" onchange="setField(${r.id},'category',this.value)" placeholder="أبواب" style="min-width:90px;" /></td>
-      <td><input type="text" value="${h(r.unit)}" onchange="setField(${r.id},'unit',this.value)" placeholder="م²" style="min-width:70px;" /></td>
+      <td><input type="text" value="${h(r.unit)}" onchange="setField(${r.id},'unit',this.value)" placeholder="الوحده" style="min-width:70px;" /></td>
       <td><textarea onchange="setField(${r.id},'description',this.value)" placeholder="اكتب وصف العمل هنا...">${h(r.description)}</textarea></td>
       <td><input type="number" min="0" value="${r.qty}" onchange="setFieldNum(${r.id},'qty',this.value)" style="min-width:55px;" /></td>
       <td><input type="number" min="0" value="${r.price}" onchange="setFieldNum(${r.id},'price',this.value)" style="min-width:80px;" /></td>
