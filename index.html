@@ -613,7 +613,7 @@ const API = {
   async fetch(method,params){
     let url=CFG.appsScriptUrl, opts={method,redirect:'follow'};
     if(method==='GET') url+='?'+new URLSearchParams(params);
-    else { opts.body=JSON.stringify(params); opts.headers={'Content-Type':'text/plain'}; }
+    else { opts.body=JSON.stringify(params); }
     const r=await fetch(url,opts); const t=await r.text();
     try{return JSON.parse(t);}catch{throw new Error('رد غير متوقع');}
   },
