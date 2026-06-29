@@ -558,7 +558,7 @@ const UI = {
       const d = await API.fetch('POST',{
         action:'sendEmailQuote',
         to,
-        subject:'عرض سعر Living Mood',
+        subject:'Quotation Project - Living Mood',
         rows: STATE.rows.map(r=>({...r, total: Q.tot(r)})),
         customer: STATE.customer,
         grandTotal: Q.grand(),
