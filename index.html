@@ -359,7 +359,7 @@ let STATE = { customer: null, rows: [] };
 function dollar(){ return $('b-dollar')?.value || $('inp-dollar')?.value || CFG.defaultDollar; }
 
 /* ─── PDF HTML builder ─── */
-function buildPdfHtml(forPrint){
+function buildPdfHtml(forPrint, forEmail=false){
   const c   = STATE.customer || {};
   const dlr = dollar();
   const date= new Date().toLocaleDateString('en-GB');
@@ -428,7 +428,7 @@ table.items tbody td:nth-child(4) { white-space:normal; max-width:0; }
     table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
     table.items tfoot td.ltr { direction:ltr; text-align:left; }
 
-    .notes-box { background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px; padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1; margin-bottom:16px; }
+    .notes-box { background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px; padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1; margin-bottom:16px; direction:rtl; text-align:right; }
     .footer { text-align:center; font-size:13px; color:#B8975A; font-family:'Playfair Display',Georgia,serif; letter-spacing:1px; direction:ltr; }
 
     .dl-bar { position:fixed; bottom:0; left:0; right:0; background:#1E1A15; padding:14px 24px; display:flex; justify-content:center; gap:14px; z-index:999; box-shadow:0 -4px 20px rgba(0,0,0,.3); }
@@ -486,7 +486,7 @@ table.items tbody td:nth-child(4) { white-space:normal; max-width:0; }
 
 </div>
 
-${forPrint ? '' : `<div class="dl-bar">
+${(forPrint || forEmail) ? '' : `<div class="dl-bar">
   <button class="dl-btn-print" onclick="window.print()">🖨 طباعة / حفظ PDF</button>
   <button class="dl-btn-hide" onclick="this.parentElement.style.display='none';document.body.style.paddingBottom='0'">إخفاء الشريط</button>
 </div>`}
