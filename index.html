@@ -900,12 +900,13 @@ function sendWhatsApp() {
   const c     = currentCustomer || {};
   const phone = (c.phone || DEFAULT_WHATSAPP).replace(/\D/g, '');
   const gt    = fmt(grandTotal());
+  const dollarRate = prompt('سعر الدولار اليوم؟', '52');
   const msg   = encodeURIComponent(
-    `مرحباً ${c.name || ''}،\n\n` +
-    `نرسل لكم عرض السعر من Living Mood:\n` +
-    `• العنوان/المشروع: ${c.address || '—'}\n` +
-    `• الإجمالي: ${gt} جنيه\n\n` +
-    `نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معاً على خير.\n` +
+    `موجه إلى: ${c.engineer || '—'}\n` +
+    `العنوان: ${c.address || '—'}\n\n` +
+    `الإجمالي: ${gt} جنيه\n\n` +
+    `• الأسعار مرتبطة بسعر الدولار اليوم ${dollarRate} جنيه مصري وسعر البنزين وأي تغيير في تكلفة التشغيل يضاف في حينها.\n` +
+    `• الأسعار وضحت بناءاً على الرسم الهندسي والـ 3D وأي تعديل في المقاسات أو التصميم يغير من الأسعار وقت التنفيذ.\n\n` +
     `Living Mood — Interior Design & Furniture`
   );
   window.open(`https://wa.me/20${phone}?text=${msg}`, '_blank');
