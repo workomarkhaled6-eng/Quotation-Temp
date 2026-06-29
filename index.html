@@ -338,31 +338,61 @@ function buildPdfHtml(forPrint){
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Cairo','Arial',sans-serif; direction: rtl; color: #1E1A15; background:#fff; }
-    @page { size: A4; margin: 14mm 12mm; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Cairo','Arial',sans-serif; direction:rtl; color:#1E1A15; background:#fff; }
+    @page { size:A4; margin:14mm 12mm; }
     @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
 
-    .hdr { display:flex; justify-content:space-between; align-items:flex-start;
-           border-bottom:2px solid #B8975A; padding-bottom:14px; margin-bottom:16px; }
-    .brand-title { font-family:'Playfair Display',Georgia,serif; font-size:36px;
-                   letter-spacing:4px; color:#1E1A15; direction:ltr; }
+    /* ── BRAND (وسط) ── */
+    .brand-block {
+      text-align:center;
+      padding-bottom:14px;
+      border-bottom:2px solid #B8975A;
+      margin-bottom:16px;
+    }
+    .brand-title {
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:38px; letter-spacing:5px; color:#1E1A15; direction:ltr;
+    }
     .brand-title span { color:#B8975A; }
-    .brand-sub { font-size:9px; letter-spacing:3px; color:#6B5E4E;
-                 text-transform:uppercase; margin-top:4px; direction:ltr; }
-    .date-box { font-size:12px; color:#6B5E4E; text-align:left; direction:ltr; }
+    .brand-sub {
+      font-size:9px; letter-spacing:3px; color:#6B5E4E;
+      text-transform:uppercase; margin-top:4px; direction:ltr;
+    }
 
-    .client-box { background:#F3EFEA; border-right:4px solid #B8975A;
-                  display:flex; margin-bottom:14px; }
-    .client-cell { padding:12px 16px; }
-    .client-lbl { font-size:10px; color:#6B5E4E; font-weight:700;
-                  letter-spacing:1px; margin-bottom:3px; text-transform:uppercase; }
+    /* ── CLIENT INFO ── */
+    .client-box {
+      background:#F3EFEA;
+      border-right:4px solid #B8975A;
+      padding:12px 16px;
+      margin-bottom:6px;
+    }
+    /* سطر: موجه إلى: hazem */
+    .client-row {
+      display:flex; align-items:baseline; gap:8px;
+      margin-bottom:6px;
+    }
+    .client-row:last-child { margin-bottom:0; }
+    .client-lbl {
+      font-size:11px; color:#6B5E4E; font-weight:700;
+      letter-spacing:1px; white-space:nowrap;
+    }
     .client-val { font-size:14px; font-weight:700; }
 
-    /* ✅ الجملة شمال مع 5px مسافة */
-    .intro { font-size:13px; color:#6B5E4E; margin-bottom:14px; line-height:1.9;
-             text-align:left; padding-right:5px; direction:rtl; }
+    /* ── DATE ── */
+    .date-row {
+      font-size:12px; color:#6B5E4E;
+      direction:ltr; text-align:left;
+      margin-bottom:14px;
+    }
 
+    /* ── INTRO ── */
+    .intro {
+      font-size:13px; color:#6B5E4E; line-height:1.9;
+      text-align:center; margin-bottom:14px;
+    }
+
+    /* ── TABLE ── */
     table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; }
     table.items thead tr { background:#2C5F3A; color:#fff; }
     table.items thead th { padding:9px 7px; text-align:right; font-weight:600; white-space:nowrap; }
@@ -372,30 +402,37 @@ function buildPdfHtml(forPrint){
     table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
     table.items tfoot td.ltr { direction:ltr; text-align:left; }
 
-    .notes-box { background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px;
-                 padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1; margin-bottom:16px; }
-    .footer { text-align:center; font-size:13px; color:#B8975A;
-              font-family:'Playfair Display',Georgia,serif; letter-spacing:1px; direction:ltr; }
+    /* ── NOTES ── */
+    .notes-box {
+      background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px;
+      padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1;
+      margin-bottom:16px;
+    }
+    .footer {
+      text-align:center; font-size:13px; color:#B8975A;
+      font-family:'Playfair Display',Georgia,serif; letter-spacing:1px; direction:ltr;
+    }
   </style>
 </head>
 <body>
-<div style="padding:${forPrint?'0':'28px 32px 24px'};">
+<div style="padding:${forPrint?'0':'24px 28px'};">
 
-  <div class="hdr">
-    <div>
-      <div class="brand-title">Living <span>Mood</span></div>
-      <div class="brand-sub">Interior Design &amp; Furniture</div>
-    </div>
-    <div class="date-box"><strong>التاريخ:</strong> ${date}</div>
+  <!-- ① Living Mood في النص وسط -->
+  <div class="brand-block">
+    <div class="brand-title">Living <span>Mood</span></div>
+    <div class="brand-sub">Interior Design &amp; Furniture</div>
   </div>
 
+  <!-- ② موجه إلى + العنوان كل واحد في سطر (label: value) -->
   <div class="client-box">
-    ${c.engineer ? `<div class="client-cell"><div class="client-lbl">موجه إلى</div><div class="client-val">${h(c.engineer)}</div></div>` : ''}
-    ${c.address  ? `<div class="client-cell"><div class="client-lbl">العنوان / المشروع</div><div class="client-val">${h(c.address)}</div></div>` : ''}
+    ${c.engineer ? `<div class="client-row"><span class="client-lbl">موجه إلى:</span><span class="client-val">${h(c.engineer)}</span></div>` : ''}
+    ${c.address  ? `<div class="client-row"><span class="client-lbl">العنوان / المشروع:</span><span class="client-val">${h(c.address)}</span></div>` : ''}
   </div>
 
-  <p class="intro">نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
+  <!-- ③ التاريخ تحت الموجه والعنوان -->
+  <div class="date-row"><strong>التاريخ:</strong> ${date}</div>
 
+  <!-- ⑤ الجدول -->
   <table class="items">
     <thead>
       <tr>
@@ -419,7 +456,13 @@ function buildPdfHtml(forPrint){
     </tfoot>
   </table>
 
+  <!-- ⑥ الملاحظات بعد الجدول -->
   <div class="notes-box">${notes}</div>
+
+  <!-- ⑦ الجملة الترحيبية في النص -->
+  <p class="intro" style="margin-bottom:0;">نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
+
+  <br/>
   <div class="footer">Thank you — Living Mood</div>
 
 </div>
