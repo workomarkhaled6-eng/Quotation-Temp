@@ -363,8 +363,7 @@ function buildPdfHtml(forPrint, forEmail=false){
   const c   = STATE.customer || {};
   const dlr = dollar();
   const date= new Date().toLocaleDateString('en-GB');
-  const notes = CFG.noteLines.map(l=>'• '+l.replace('{DOLLAR}',dlr)).join('<br>');
-
+const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.replace('{DOLLAR}',dlr)}</div>`).join('');
   let tbody='';
   STATE.rows.forEach((r,i)=>{
     const tot=Q.tot(r);
@@ -438,7 +437,7 @@ table.items tbody td:nth-child(4) { white-space:normal; max-width:0; }
     @media print { .dl-bar { display:none!important; } body { padding-bottom:0!important; } }
   </style>
 </head>
-<body style="padding-bottom:${forPrint?'0':'80px'};">
+<body style="padding-bottom:${(forPrint||forEmail)?'0':'80px'};">
 <div style="padding:${forPrint?'0':'24px 28px'};">
 
   <div class="brand-block">
@@ -515,7 +514,7 @@ const UI = {
     $('mail-status').textContent = 'جاري الإرسال...';
     $('mail-status').style.display = 'block';
     try{
-      const html = buildPdfHtml(false);
+const html = buildPdfHtml(false, true);
       const d = await API.fetch('POST',{action:'sendEmailQuote', to, subject:'عرض سعر Living Mood', html});
       if(d.success){ $('mail-status').textContent='✔ تم الإرسال بنجاح'; setTimeout(closeMailModal,1500); }
       else $('mail-status').textContent='خطأ: '+(d.error||'غير معروف');
