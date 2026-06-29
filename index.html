@@ -352,10 +352,7 @@ function openConfirm(msg, cb){
   $('confirm-modal').classList.add('open');
 }
 function closeConfirm(){ $('confirm-modal').classList.remove('open'); _confirmCb=null; }
-$('confirm-yes').onclick = () => { closeConfirm(); if(_confirmCb) _confirmCb(); };
-$('confirm-modal').addEventListener('click', function(e){ if(e.target===this) closeConfirm(); });
 
-/* ─── state ─── */
 let STATE = { customer: null, rows: [] };
 
 function dollar(){ return $('b-dollar')?.value || $('inp-dollar')?.value || CFG.defaultDollar; }
