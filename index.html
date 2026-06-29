@@ -352,6 +352,7 @@ function openConfirm(msg, cb){
   $('confirm-modal').classList.add('open');
 }
 function closeConfirm(){ $('confirm-modal').classList.remove('open'); _confirmCb=null; }
+function closeMailModal(){ $('mail-modal').classList.remove('open'); }
 
 let STATE = { customer: null, rows: [] };
 
@@ -500,6 +501,27 @@ const UI = {
   show(id){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); $(id).classList.add('active'); },
   goHome(){   this.show('pg-home'); API.listCustomers(); },
   goEditor(){ this.show('pg-editor'); },
+
+  openMailPrompt(){
+    $('mail-to-input').value = '';
+    $('mail-status').style.display = 'none';
+    $('mail-modal').classList.add('open');
+  },
+
+  async sendMailNow(){
+    const to = $('mail-to-input').value.trim();
+    if(!to){ $('mail-status').textContent='برجاء إدخال إيميل صحيح'; $('mail-status').style.display='block'; return; }
+    $('mail-send-btn').disabled = true;
+    $('mail-status').textContent = 'جاري الإرسال...';
+    $('mail-status').style.display = 'block';
+    try{
+      const html = buildPdfHtml(false);
+      const d = await API.fetch('POST',{action:'sendEmailQuote', to, subject:'عرض سعر Living Mood', html});
+      if(d.success){ $('mail-status').textContent='✔ تم الإرسال بنجاح'; setTimeout(closeMailModal,1500); }
+      else $('mail-status').textContent='خطأ: '+(d.error||'غير معروف');
+    }catch(e){ $('mail-status').textContent='تعذر الإرسال: '+e.message; }
+    finally{ $('mail-send-btn').disabled=false; }
+  },
 
   showPreview(){
     // معاينة فقط — لا تحفظ
