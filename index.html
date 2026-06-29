@@ -657,18 +657,17 @@ function updateRow(id, field, val) {
 
 /* ── CREATE CUSTOMER ── */
 async function createCustomer() {
-  const name     = document.getElementById('new-name').value.trim();
-  const phone    = document.getElementById('new-phone').value.trim();
   const engineer = document.getElementById('new-engineer').value.trim();
   const address  = document.getElementById('new-address').value.trim();
+  const name     = engineer || address || ('كوتيشن-' + Date.now());
+  const phone    = '';
 
-  if (!name) { showAlert('alert-create', 'error', 'برجاء إدخال اسم العميل'); return; }
-
+  if (!engineer && !address) { showAlert('alert-create', 'error', 'برجاء إدخال موجه إلى أو العنوان'); return; }
   currentCustomer = { name, phone, engineer, address };
   rows = [newRow()];
 
-  document.getElementById('banner-name').textContent     = name;
-  document.getElementById('banner-phone').textContent    = phone;
+document.getElementById('banner-name').textContent     = '';
+  document.getElementById('banner-phone').textContent    = '';
   document.getElementById('banner-engineer').textContent = engineer || '—';
   document.getElementById('banner-address').textContent  = address || '—';
 
