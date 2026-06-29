@@ -544,11 +544,6 @@ $('preview-inner').innerHTML = buildPdfHtml(false, false);
     $('b-dollar').value = dlr;
     Q.render();
     this.goEditor();
-    loading('جاري إنشاء الكوتيشن...');
-    API.fetch('POST',{action:'createCustomer',name,phone:'',engineer:eng,address:adr})
-      .then(r=>{ if(r.sheetId) STATE.customer.sheetId=r.sheetId; })
-      .catch(e=>console.warn(e))
-      .finally(loaded);
   },
 
   openCustomer(c){
