@@ -410,7 +410,7 @@ const notes = CFG.noteLines.map(l=>`<div style="margin-bottom:6px;">• ${l.repl
     .brand-sub { font-size:9px; letter-spacing:3px; color:#6B5E4E; text-transform:uppercase; margin-top:4px; direction:ltr; }
 
    .client-box { background:#F3EFEA; border-right:4px solid #B8975A; padding:12px 16px; margin-bottom:6px; direction:rtl; text-align:right; }
-    .client-row { display:flex; align-items:baseline; gap:8px; margin-bottom:6px; justify-content:flex-end; flex-direction:row-reverse; }
+    .client-row { display:flex; align-items:baseline; gap:8px; margin-bottom:6px; justify-content:flex-start; flex-direction:row; }
     .client-row:last-child { margin-bottom:0; }
     .client-lbl { font-size:11px; color:#6B5E4E; font-weight:700; letter-spacing:1px; white-space:nowrap; }
     .client-val { font-size:14px; font-weight:700; }
@@ -450,7 +450,7 @@ u + #body .notes-box, #MessageViewBody .notes-box { display:block !important; ma
 
   <div class="date-row"><strong>التاريخ:</strong> ${date}</div>
 
-  <div class="client-box">
+ <div class="client-box">
     ${c.engineer ? `<div class="client-row"><span class="client-lbl">موجه إلى:</span><span class="client-val">${h(c.engineer)}</span></div>` : ''}
     ${c.address  ? `<div class="client-row"><span class="client-lbl">العنوان / المشروع:</span><span class="client-val">${h(c.address)}</span></div>` : ''}
   </div>
