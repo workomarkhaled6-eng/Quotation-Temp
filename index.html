@@ -125,6 +125,24 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 #preview-box{margin-top:14px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:#fff;}
 #preview-inner{background:#fff;}
 
+/* ── MODAL ── */
+#action-modal{display:none;position:fixed;inset:0;background:rgba(30,26,21,.65);z-index:950;justify-content:center;align-items:center;}
+#action-modal.open{display:flex;}
+.modal-card{background:#fff;border-radius:14px;padding:32px 28px;width:min(440px,94vw);box-shadow:0 20px 60px rgba(30,26,21,.3);}
+.modal-logo{text-align:center;margin-bottom:6px;font-family:'Playfair Display',serif;font-size:22px;color:var(--dark);letter-spacing:4px;}
+.modal-logo span{color:var(--gold);}
+.modal-sub{font-size:12px;color:var(--mid);text-align:center;margin-bottom:20px;letter-spacing:1px;}
+.modal-divider{height:1px;background:var(--border);margin-bottom:20px;}
+.modal-actions{display:flex;flex-direction:column;gap:10px;}
+.modal-btn{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1.5px solid var(--border);border-radius:10px;background:var(--bg);cursor:pointer;transition:all .18s;font-family:'Cairo',sans-serif;text-align:right;}
+.modal-btn:hover{border-color:var(--gold);background:#ece6dd;transform:translateX(-2px);}
+.modal-btn .mb-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.modal-btn .mb-title{font-weight:700;font-size:14px;color:var(--dark);}
+.modal-btn .mb-desc{font-size:11px;color:var(--mid);margin-top:3px;}
+.modal-close{margin-top:18px;text-align:center;}
+.modal-close button{background:none;border:none;font-family:'Cairo',sans-serif;font-size:13px;color:var(--mid);cursor:pointer;padding:6px 18px;border-radius:6px;transition:background .15s;}
+.modal-close button:hover{background:var(--bg);color:var(--dark);}
+
 @media(max-width:640px){
   .fg3,.fg2{grid-template-columns:1fr;}
   .card{padding:18px 14px;}
@@ -146,6 +164,45 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 <div id="overlay">
   <div class="spinner"></div>
   <span id="overlay-msg">جاري المعالجة...</span>
+</div>
+
+<!-- ── MODAL: 3 اختيارات ── -->
+<div id="action-modal">
+  <div class="modal-card">
+    <div class="modal-logo">Living <span>Mood</span></div>
+    <div class="modal-sub">اختر الإجراء المطلوب</div>
+    <div class="modal-divider"></div>
+    <div class="modal-actions">
+
+      <button class="modal-btn" onclick="PDF.downloadAdobe()">
+        <div class="mb-icon" style="background:#FFF3E0;">📄</div>
+        <div>
+          <div class="mb-title">تحميل PDF</div>
+          <div class="mb-desc">حفظ الملف على جهازك عبر نافذة الطباعة — اختر "Save as PDF"</div>
+        </div>
+      </button>
+
+      <button class="modal-btn" onclick="PDF.printDirect()">
+        <div class="mb-icon" style="background:#E8F0FE;">🖨️</div>
+        <div>
+          <div class="mb-title">طباعة مباشرة</div>
+          <div class="mb-desc">إرسال الكوتيشن للطابعة مباشرةً</div>
+        </div>
+      </button>
+
+      <button class="modal-btn" onclick="WA.send()">
+        <div class="mb-icon" style="background:#E8F8EE;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.523 5.847L0 24l6.335-1.507A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.024-1.378l-.36-.214-3.758.895.908-3.653-.234-.376A9.818 9.818 0 0112 2.182c5.424 0 9.818 4.394 9.818 9.818 0 5.425-4.394 9.818-9.818 9.818z"/></svg>
+        </div>
+        <div>
+          <div class="mb-title">إرسال واتساب</div>
+          <div class="mb-desc">فتح واتساب مع ملخص الكوتيشن تلقائياً</div>
+        </div>
+      </button>
+
+    </div>
+    <div class="modal-close"><button onclick="closeModal()">✕ إغلاق</button></div>
+  </div>
 </div>
 
 <div class="topbar">Living Mood — Interior Excellence</div>
@@ -258,11 +315,7 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
     <div class="card" style="padding:12px 16px;margin-bottom:0;">
       <div class="action-bar" style="margin-top:0;">
         <button class="btn btn-outline" onclick="UI.goEditor()">← تعديل</button>
-        <button class="btn btn-dark" onclick="PDF.download()">⬇ تحميل / طباعة PDF</button>
-        <button class="btn btn-green" onclick="WA.send()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.523 5.847L0 24l6.335-1.507A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.024-1.378l-.36-.214-3.758.895.908-3.653-.234-.376A9.818 9.818 0 0112 2.182c5.424 0 9.818 4.394 9.818 9.818 0 5.425-4.394 9.818-9.818 9.818z"/></svg>
-          إرسال PDF واتساب
-        </button>
+        <button class="btn btn-gold" onclick="openModal()">⬆ إرسال / تحميل PDF</button>
       </div>
     </div>
     <div id="preview-box">
@@ -277,7 +330,6 @@ table.q-tbl{width:100%;border-collapse:collapse;font-size:13px;min-width:680px;}
 /* ─── helpers ─── */
 const $  = id => document.getElementById(id);
 const h  = s  => (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-// ✅ أرقام إنجليزية دايماً
 const fmt= n  => Number(n||0).toLocaleString('en-US');
 const num= v  => parseFloat((v+'').replace(/,/g,''))||0;
 
@@ -290,12 +342,19 @@ function alert_(id,type,msg){
   setTimeout(()=>el.style.display='none',4000);
 }
 
+function openModal()  { $('action-modal').classList.add('open'); }
+function closeModal() { $('action-modal').classList.remove('open'); }
+
+document.getElementById('action-modal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
 /* ─── state ─── */
 let STATE = { customer: null, rows: [] };
 
 function dollar(){ return $('b-dollar')?.value || $('inp-dollar')?.value || CFG.defaultDollar; }
 
-/* ─── PDF HTML builder (shared between preview, download, whatsapp) ─── */
+/* ─── PDF HTML builder ─── */
 function buildPdfHtml(forPrint){
   const c   = STATE.customer || {};
   const dlr = dollar();
@@ -321,11 +380,9 @@ function buildPdfHtml(forPrint){
       </tr>`;
   });
 
-  const nm = (c.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF-]/g,'');
-
   const printScript = forPrint ? `<script>
     document.fonts.ready.then(function(){
-      setTimeout(function(){ window.print(); }, 500);
+      setTimeout(function(){ window.print(); }, 600);
     });
   <\/script>` : '';
 
@@ -333,7 +390,7 @@ function buildPdfHtml(forPrint){
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8"/>
-  <title>LivingMood_${nm}</title>
+  <title>LivingMood_Quote</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
@@ -343,56 +400,20 @@ function buildPdfHtml(forPrint){
     @page { size:A4; margin:14mm 12mm; }
     @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
 
-    /* ── BRAND (وسط) ── */
-    .brand-block {
-      text-align:center;
-      padding-bottom:14px;
-      border-bottom:2px solid #B8975A;
-      margin-bottom:16px;
-    }
-    .brand-title {
-      font-family:'Playfair Display',Georgia,serif;
-      font-size:38px; letter-spacing:5px; color:#1E1A15; direction:ltr;
-    }
+    .brand-block { text-align:center; padding-bottom:14px; border-bottom:2px solid #B8975A; margin-bottom:16px; }
+    .brand-title { font-family:'Playfair Display',Georgia,serif; font-size:38px; letter-spacing:5px; color:#1E1A15; direction:ltr; }
     .brand-title span { color:#B8975A; }
-    .brand-sub {
-      font-size:9px; letter-spacing:3px; color:#6B5E4E;
-      text-transform:uppercase; margin-top:4px; direction:ltr;
-    }
+    .brand-sub { font-size:9px; letter-spacing:3px; color:#6B5E4E; text-transform:uppercase; margin-top:4px; direction:ltr; }
 
-    /* ── CLIENT INFO ── */
-    .client-box {
-      background:#F3EFEA;
-      border-right:4px solid #B8975A;
-      padding:12px 16px;
-      margin-bottom:6px;
-    }
-    /* سطر: موجه إلى: hazem */
-    .client-row {
-      display:flex; align-items:baseline; gap:8px;
-      margin-bottom:6px;
-    }
+    .client-box { background:#F3EFEA; border-right:4px solid #B8975A; padding:12px 16px; margin-bottom:6px; }
+    .client-row { display:flex; align-items:baseline; gap:8px; margin-bottom:6px; }
     .client-row:last-child { margin-bottom:0; }
-    .client-lbl {
-      font-size:11px; color:#6B5E4E; font-weight:700;
-      letter-spacing:1px; white-space:nowrap;
-    }
+    .client-lbl { font-size:11px; color:#6B5E4E; font-weight:700; letter-spacing:1px; white-space:nowrap; }
     .client-val { font-size:14px; font-weight:700; }
 
-    /* ── DATE ── */
-    .date-row {
-      font-size:12px; color:#6B5E4E;
-      direction:ltr; text-align:left;
-      margin-bottom:14px;
-    }
+    .date-row { font-size:12px; color:#6B5E4E; direction:ltr; text-align:left; margin-bottom:14px; }
+    .intro { font-size:13px; color:#6B5E4E; line-height:1.9; text-align:center; margin-bottom:14px; }
 
-    /* ── INTRO ── */
-    .intro {
-      font-size:13px; color:#6B5E4E; line-height:1.9;
-      text-align:center; margin-bottom:14px;
-    }
-
-    /* ── TABLE ── */
     table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rtl; margin-bottom:14px; }
     table.items thead tr { background:#2C5F3A; color:#fff; }
     table.items thead th { padding:9px 7px; text-align:right; font-weight:600; white-space:nowrap; }
@@ -402,37 +423,26 @@ function buildPdfHtml(forPrint){
     table.items tfoot td { padding:9px 7px; font-weight:700; font-size:13px; }
     table.items tfoot td.ltr { direction:ltr; text-align:left; }
 
-    /* ── NOTES ── */
-    .notes-box {
-      background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px;
-      padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1;
-      margin-bottom:16px;
-    }
-    .footer {
-      text-align:center; font-size:13px; color:#B8975A;
-      font-family:'Playfair Display',Georgia,serif; letter-spacing:1px; direction:ltr;
-    }
+    .notes-box { background:#F3EFEA; border:1px solid #D9D0C4; border-radius:5px; padding:13px 16px; font-size:12px; color:#6B5E4E; line-height:2.1; margin-bottom:16px; }
+    .footer { text-align:center; font-size:13px; color:#B8975A; font-family:'Playfair Display',Georgia,serif; letter-spacing:1px; direction:ltr; }
   </style>
 </head>
 <body>
 <div style="padding:${forPrint?'0':'24px 28px'};">
 
-  <!-- ① Living Mood في النص وسط -->
   <div class="brand-block">
     <div class="brand-title">Living <span>Mood</span></div>
     <div class="brand-sub">Interior Design &amp; Furniture</div>
   </div>
 
-  <!-- ② التاريخ فوق الموجه -->
   <div class="date-row"><strong>التاريخ:</strong> ${date}</div>
 
-  <!-- ③ موجه إلى + العنوان كل واحد في سطر (label: value) -->
   <div class="client-box">
     ${c.engineer ? `<div class="client-row"><span class="client-lbl">موجه إلى:</span><span class="client-val">${h(c.engineer)}</span></div>` : ''}
     ${c.address  ? `<div class="client-row"><span class="client-lbl">العنوان / المشروع:</span><span class="client-val">${h(c.address)}</span></div>` : ''}
   </div>
 
-  <!-- ⑤ الجدول -->
+  <br/>
   <table class="items">
     <thead>
       <tr>
@@ -456,10 +466,8 @@ function buildPdfHtml(forPrint){
     </tfoot>
   </table>
 
-  <!-- ⑥ الملاحظات بعد الجدول -->
   <div class="notes-box">${notes}</div>
 
-  <!-- ⑦ الجملة الترحيبية في النص -->
   <p class="intro" style="margin-bottom:0;">نحن سعداء بالعمل معكم، ونتطلع إلى استكمال الأعمال معًا على خير.</p>
 
   <br/>
@@ -477,7 +485,6 @@ const UI = {
   goHome(){   this.show('pg-home'); API.listCustomers(); },
   goEditor(){ this.show('pg-editor'); },
 
-  // ✅ المعاينة مش بتحفظ — بس بتبني الـ HTML
   showPreview(){
     $('preview-inner').innerHTML = buildPdfHtml(false);
     this.show('pg-preview');
@@ -583,7 +590,6 @@ const API = {
     }catch(e){ list.innerHTML=`<div style="color:#721c24;font-size:13px;text-align:center;padding:20px;">تعذر التحميل — ${e.message}</div>`; }
   },
 
-  // ✅ الحفظ اليدوي فقط — مش بيتعمل أوتوماتيك
   async save(){
     loading('جاري الحفظ...');
     try{
@@ -600,48 +606,47 @@ const API = {
 
 /* ─── PDF ─── */
 const PDF = {
-  download(){
-    const c  = STATE.customer || {};
-    const nm = (c.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF-]/g,'');
-    const win = window.open('', '_blank', 'width=900,height=700');
-    if(!win){ alert('السماح بالـ Popups للموقع'); return; }
+
+  /* الاختيار 1: تحميل PDF — بيفتح نافذة بدون طباعة تلقائية، المستخدم يختار Save as PDF */
+  downloadAdobe(){
+    closeModal();
+    const win = window.open('', '_blank', 'width=920,height=720');
+    if(!win){ alert('الرجاء السماح بالـ Popups للموقع'); return; }
+    const html = buildPdfHtml(false).replace(
+      '</body>',
+      `<div id="dl-bar" style="position:fixed;bottom:0;left:0;right:0;background:#1E1A15;padding:14px 24px;display:flex;justify-content:center;gap:14px;z-index:999;box-shadow:0 -4px 20px rgba(0,0,0,.3);">
+        <button onclick="window.print()" style="background:#B8975A;color:#fff;border:none;padding:13px 36px;font-size:15px;font-family:'Cairo',sans-serif;border-radius:8px;cursor:pointer;font-weight:700;letter-spacing:1px;">🖨 طباعة / حفظ PDF</button>
+        <button onclick="document.getElementById('dl-bar').style.display='none';document.body.style.paddingBottom='0'" style="background:transparent;color:#D4B483;border:1.5px solid #6B5E4E;padding:13px 20px;font-size:14px;font-family:'Cairo',sans-serif;border-radius:8px;cursor:pointer;font-weight:600;">إخفاء الشريط</button>
+      </div>
+      <style>body{padding-bottom:80px;}@media print{#dl-bar{display:none!important;}body{padding-bottom:0;}}</style>
+      </body>`
+    );
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+  },
+
+  /* الاختيار 2: طباعة مباشرة — بتطبع تلقائياً */
+  printDirect(){
+    closeModal();
+    const win = window.open('', '_blank', 'width=920,height=720');
+    if(!win){ alert('الرجاء السماح بالـ Popups للموقع'); return; }
     win.document.open();
     win.document.write(buildPdfHtml(true));
     win.document.close();
   }
 };
 
-/* ─── WhatsApp — يولد PDF ويفتح واتساب مباشرة ─── */
+/* ─── WhatsApp — الاختيار 3 ─── */
 const WA = {
-  async send(){
-    const c  = STATE.customer || {};
-    const nm = (c.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF-]/g,'');
+  send(){
+    closeModal();
+    const c     = STATE.customer || {};
     const phone = CFG.whatsappPhone;
-
-    // افتح نافذة الطباعة للـ PDF
-    const win = window.open('', '_blank', 'width=900,height=700');
-    if(!win){ alert('السماح بالـ Popups للموقع'); return; }
-
-    // أضف زرار "بعد الطباعة افتح واتساب" في نافذة الـ PDF
-    const dlr = dollar();
     const waMsg = encodeURIComponent(
       `موجه إلى: ${c.engineer||'—'}\nالعنوان: ${c.address||'—'}\nالإجمالي: ${fmt(Q.grand())} جنيه\n\nLiving Mood — Interior Design & Furniture`
     );
-    const waUrl = `https://wa.me/${phone}?text=${waMsg}`;
-
-    const html = buildPdfHtml(false).replace(
-      '</body>',
-      `<div style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;display:flex;gap:12px;">
-        <button onclick="window.print()" style="background:#1E1A15;color:#D4B483;border:none;padding:12px 28px;font-size:14px;font-family:'Cairo',sans-serif;border-radius:6px;cursor:pointer;font-weight:700;">🖨 طباعة / حفظ PDF</button>
-        <button onclick="window.open('${waUrl}','_blank')" style="background:#25D366;color:#fff;border:none;padding:12px 28px;font-size:14px;font-family:'Cairo',sans-serif;border-radius:6px;cursor:pointer;font-weight:700;">📲 فتح واتساب</button>
-      </div>
-      <style>@media print{div[style*="position:fixed"]{display:none!important;}}</style>
-      </body>`
-    );
-
-    win.document.open();
-    win.document.write(html);
-    win.document.close();
+    window.open(`https://wa.me/${phone}?text=${waMsg}`, '_blank');
   }
 };
 
