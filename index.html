@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
     * { box-sizing:border-box; margin:0; padding:0; }
     body { background:var(--bg); font-family:'Cairo',sans-serif; color:var(--dark); min-height:100vh; }
     .topbar { background:var(--dark); color:var(--gold-light); text-align:center; padding:10px 20px; font-size:13px; letter-spacing:3px; text-transform:uppercase; font-family:'Playfair Display',serif; }
-    .shell { max-width:960px; margin:0 auto; padding:32px 16px 80px; }
+    .shell { max-width:980px; margin:0 auto; padding:32px 16px 80px; }
     .brand { text-align:center; margin-bottom:40px; }
     .brand-name { font-family:'Playfair Display',serif; font-size:clamp(36px,6vw,58px); color:var(--dark); letter-spacing:6px; line-height:1; }
     .brand-name span { color:var(--gold); }
@@ -30,11 +30,13 @@
     .card-title { font-family:'Playfair Display',serif; font-size:20px; color:var(--dark); margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
     .card-title::before { content:''; display:inline-block; width:4px; height:20px; background:var(--gold); border-radius:2px; }
     .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    @media(max-width:600px){ .form-grid { grid-template-columns:1fr; } }
+    .form-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+    @media(max-width:600px){ .form-grid,.form-grid-3 { grid-template-columns:1fr; } }
     .field { display:flex; flex-direction:column; gap:6px; }
     label { font-size:12px; font-weight:600; color:var(--mid); letter-spacing:1px; text-transform:uppercase; }
     input,select,textarea { width:100%; padding:10px 14px; border:1.5px solid var(--border); border-radius:6px; font-family:'Cairo',sans-serif; font-size:14px; color:var(--dark); background:var(--bg); transition:border-color .2s; outline:none; }
     input:focus,select:focus,textarea:focus { border-color:var(--gold); background:#fff; }
+    textarea { resize:vertical; min-height:72px; line-height:1.6; }
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 28px; border:none; border-radius:6px; font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; cursor:pointer; transition:opacity .2s,transform .1s; }
     .btn:active { transform:scale(.97); }
     .btn-gold { background:var(--gold); color:#fff; }
@@ -47,7 +49,7 @@
     .steps { display:flex; align-items:center; margin-bottom:32px; }
     .step { flex:1; text-align:center; padding:12px 8px; font-size:13px; font-weight:600; color:var(--mid); border-bottom:3px solid var(--border); cursor:default; transition:color .2s,border-color .2s; }
     .step.active { color:var(--gold); border-color:var(--gold); }
-    .step.done { color:var(--header-bg); border-color:var(--header-bg); }
+    .step.done { color:var(--header-bg); border-color:var(--header-bg); cursor:pointer; }
     .q-table-wrap { overflow-x:auto; margin-bottom:16px; }
     table.q-table { width:100%; border-collapse:collapse; font-size:13px; }
     .q-table thead tr { background:var(--header-bg); color:var(--header-txt); }
@@ -55,8 +57,9 @@
     .q-table tbody tr { border-bottom:1px solid var(--border); }
     .q-table tbody tr:hover { background:#f9f6f2; }
     .q-table td { padding:8px 10px; vertical-align:middle; }
-    .q-table td input,.q-table td select { padding:6px 8px; font-size:13px; min-width:80px; background:#fff; }
-    .q-table td.total-cell { font-weight:700; color:var(--dark); text-align:left; direction:ltr; }
+    .q-table td input,.q-table td select { padding:6px 8px; font-size:13px; background:#fff; }
+    .q-table td textarea { padding:6px 8px; font-size:13px; background:#fff; min-height:60px; width:100%; }
+    .q-table td.total-cell { font-weight:700; color:var(--dark); text-align:left; direction:ltr; white-space:nowrap; }
     .cat-tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:11px; font-weight:700; letter-spacing:.5px; color:#fff; }
     .cat-DOORS { background:var(--tag-doors); }
     .cat-RECEPTION { background:var(--tag-rec); }
@@ -80,15 +83,42 @@
     .customer-item .ci-name { font-weight:700; font-size:15px; }
     .customer-item .ci-meta { font-size:12px; color:var(--mid); margin-top:2px; }
     .customer-item .ci-badge { background:var(--gold); color:#fff; font-size:11px; padding:3px 10px; border-radius:20px; font-weight:700; }
-    .preview-page { background:#fff; padding:48px 48px 40px; font-family:'Cairo',sans-serif; direction:rtl; color:#1E1A15; max-width:780px; margin:0 auto; }
-    .preview-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; padding-bottom:20px; border-bottom:2px solid #B8975A; }
+
+    /* ── PDF PREVIEW ── */
+    #pdf-preview { background:#fff; }
+    .preview-page {
+      background:#fff;
+      padding:40px 48px 36px;
+      font-family:'Cairo',sans-serif;
+      direction:rtl;
+      color:#1E1A15;
+      max-width:800px;
+      margin:0 auto;
+    }
+    .preview-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      margin-bottom:24px;
+      padding-bottom:18px;
+      border-bottom:2px solid #B8975A;
+    }
     .preview-brand-name { font-family:'Playfair Display',serif; font-size:38px; color:#1E1A15; letter-spacing:5px; }
     .preview-brand-name span { color:#B8975A; }
     .preview-brand-sub { font-size:10px; letter-spacing:3px; color:#6B5E4E; text-transform:uppercase; margin-top:4px; text-align:center; }
     .preview-meta { text-align:left; font-size:13px; }
     .preview-meta .meta-row { margin-bottom:4px; }
     .preview-meta .meta-label { font-weight:700; color:#6B5E4E; }
-    .preview-client-box { background:#F3EFEA; border-right:4px solid #B8975A; padding:14px 20px; margin-bottom:24px; border-radius:4px; display:flex; gap:40px; flex-wrap:wrap; }
+    .preview-client-box {
+      background:#F3EFEA;
+      border-right:4px solid #B8975A;
+      padding:14px 20px;
+      margin-bottom:20px;
+      border-radius:4px;
+      display:flex;
+      gap:40px;
+      flex-wrap:wrap;
+    }
     .preview-client-box .cl-item { display:flex; flex-direction:column; gap:2px; }
     .preview-client-box .cl-label { font-size:11px; color:#6B5E4E; font-weight:700; letter-spacing:1px; }
     .preview-client-box .cl-val { font-size:15px; font-weight:700; }
@@ -96,12 +126,27 @@
     .preview-table thead tr { background:#2C5F3A; color:#fff; }
     .preview-table thead th { padding:9px 10px; text-align:right; font-weight:600; }
     .preview-table tbody tr { border-bottom:1px solid #D9D0C4; }
-    .preview-table tbody td { padding:7px 10px; }
+    .preview-table tbody td { padding:7px 10px; vertical-align:top; }
     .preview-table tfoot tr { background:#1E1A15; color:#D4B483; }
     .preview-table tfoot td { padding:11px 10px; font-weight:700; font-size:14px; }
-    .preview-notes { background:#F3EFEA; border:1px solid #D9D0C4; border-radius:6px; padding:16px 20px; font-size:12px; color:#6B5E4E; line-height:1.9; margin-bottom:18px; }
+    .preview-notes {
+      background:#F3EFEA;
+      border:1px solid #D9D0C4;
+      border-radius:6px;
+      padding:16px 20px;
+      font-size:12px;
+      color:#6B5E4E;
+      line-height:2;
+      margin-bottom:18px;
+    }
     .preview-thanks { text-align:center; font-size:13px; color:#B8975A; font-family:'Playfair Display',serif; letter-spacing:1px; }
-    @media(max-width:500px){ .card { padding:20px 16px; } .grand-total-bar { flex-direction:column; gap:8px; text-align:center; } .action-bar { justify-content:center; } }
+    .dollar-note { font-size:11px; color:var(--mid); margin-top:4px; }
+
+    @media(max-width:500px){
+      .card { padding:20px 16px; }
+      .grand-total-bar { flex-direction:column; gap:8px; text-align:center; }
+      .action-bar { justify-content:center; }
+    }
   </style>
 </head>
 <body>
@@ -125,7 +170,7 @@
     <div class="card">
       <div class="card-title">إنشاء كوتيشن جديد</div>
       <div id="alert-create" class="alert"></div>
-      <div class="form-grid">
+      <div class="form-grid-3">
         <div class="field">
           <label>موجه إلى (Engineer / مسؤول)</label>
           <input type="text" id="new-engineer" placeholder="ENG/ KHALED" />
@@ -133,6 +178,11 @@
         <div class="field">
           <label>العنوان / المشروع</label>
           <input type="text" id="new-address" placeholder="TAJ CITY" />
+        </div>
+        <div class="field">
+          <label>سعر الدولار اليوم (جنيه)</label>
+          <input type="number" id="new-dollar-rate" placeholder="52" value="52" min="1" />
+          <span class="dollar-note">يُستخدم في الملاحظات بالـ PDF والواتساب</span>
         </div>
       </div>
       <div style="margin-top:20px; display:flex; justify-content:flex-end;">
@@ -157,14 +207,21 @@
     </div>
 
     <div class="card" style="padding:20px 28px;">
-      <div style="display:flex; flex-wrap:wrap; gap:24px; align-items:center;">
-        <div>
-          <div style="font-size:11px;color:var(--mid);letter-spacing:1px;font-weight:600;margin-bottom:4px;">موجه إلى</div>
-          <div id="banner-engineer" style="font-size:20px;font-weight:700;"></div>
+      <div style="display:flex; flex-wrap:wrap; gap:24px; align-items:center; justify-content:space-between;">
+        <div style="display:flex;gap:32px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:11px;color:var(--mid);letter-spacing:1px;font-weight:600;margin-bottom:4px;">موجه إلى</div>
+            <div id="banner-engineer" style="font-size:20px;font-weight:700;"></div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--mid);letter-spacing:1px;font-weight:600;margin-bottom:4px;">العنوان</div>
+            <div id="banner-address" style="font-size:15px;"></div>
+          </div>
         </div>
-        <div>
-          <div style="font-size:11px;color:var(--mid);letter-spacing:1px;font-weight:600;margin-bottom:4px;">العنوان</div>
-          <div id="banner-address" style="font-size:15px;"></div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <label style="margin:0;white-space:nowrap;">سعر الدولار:</label>
+          <input type="number" id="dollar-rate-display" value="52" min="1" style="width:90px;padding:7px 10px;font-size:14px;font-weight:700;" />
+          <span style="font-size:12px;color:var(--mid);">جنيه</span>
         </div>
       </div>
     </div>
@@ -176,15 +233,15 @@
         <table class="q-table">
           <thead>
             <tr>
-              <th>#</th>
-              <th>النموذج (فئة)</th>
-              <th>الوحدة</th>
-              <th style="min-width:220px;">المطلوب تنفيذه</th>
-              <th>عدد</th>
-              <th>السعر</th>
-              <th>الإجمالي</th>
-              <th>ملاحظات</th>
-              <th></th>
+              <th style="width:36px;">#</th>
+              <th style="width:110px;">النموذج (فئة)</th>
+              <th style="width:90px;">الوحدة</th>
+              <th>المطلوب تنفيذه</th>
+              <th style="width:70px;">عدد</th>
+              <th style="width:100px;">السعر</th>
+              <th style="width:110px;">الإجمالي</th>
+              <th style="width:130px;">ملاحظات</th>
+              <th style="width:40px;"></th>
             </tr>
           </thead>
           <tbody id="q-body"></tbody>
@@ -221,7 +278,7 @@
       </div>
     </div>
     <div style="margin-top:16px; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);">
-      <div id="pdf-preview" style="display:block;">
+      <div id="pdf-preview">
         <div class="preview-page" id="preview-inner"></div>
       </div>
     </div>
@@ -257,6 +314,12 @@ function showAlert(id, type, msg){
 function fmt(n){ return Number(n||0).toLocaleString('ar-EG'); }
 function num(v){ return parseFloat((v+'').replace(/,/g,''))||0; }
 
+function getDollarRate(){
+  const editorVal = document.getElementById('dollar-rate-display')?.value;
+  if(editorVal) return editorVal;
+  return document.getElementById('new-dollar-rate')?.value || '52';
+}
+
 function goHome(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
@@ -285,16 +348,18 @@ function renderTable(){
     tr.innerHTML = `
       <td style="text-align:center;color:var(--mid);font-size:12px;">${i+1}</td>
       <td>
-        <select onchange="updateRow(${r.id},'category',this.value)">
+        <select onchange="updateRow(${r.id},'category',this.value)" style="width:100%;">
           ${CATEGORIES.map(c=>`<option value="${c}" ${r.category===c?'selected':''}>${c}</option>`).join('')}
         </select>
       </td>
-      <td><input type="text"   value="${r.unit}"        onchange="updateRow(${r.id},'unit',this.value)"        placeholder="وحدة"        style="width:90px;" /></td>
-      <td><input type="text"   value="${r.description}" onchange="updateRow(${r.id},'description',this.value)" placeholder="وصف العمل..." style="min-width:200px;width:100%;" /></td>
-      <td><input type="number" min="0" value="${r.qty}" onchange="updateRow(${r.id},'qty',this.value)"                                    style="width:70px;" /></td>
-      <td><input type="number" min="0" value="${r.price}" onchange="updateRow(${r.id},'price',this.value)"                                style="width:100px;" /></td>
+      <td><input type="text" value="${escHtml(r.unit)}" onchange="updateRow(${r.id},'unit',this.value)" placeholder="وحدة" style="width:100%;" /></td>
+      <td>
+        <textarea onchange="updateRow(${r.id},'description',this.value)" placeholder="اكتب وصف العمل هنا..." style="width:100%;min-height:68px;">${escHtml(r.description)}</textarea>
+      </td>
+      <td><input type="number" min="0" value="${r.qty}" onchange="updateRow(${r.id},'qty',this.value)" style="width:100%;" /></td>
+      <td><input type="number" min="0" value="${r.price}" onchange="updateRow(${r.id},'price',this.value)" style="width:100%;" /></td>
       <td class="total-cell">${fmt(tot)}</td>
-      <td><input type="text"   value="${r.notes}"       onchange="updateRow(${r.id},'notes',this.value)"       placeholder="ملاحظة..."   style="width:110px;" /></td>
+      <td><textarea onchange="updateRow(${r.id},'notes',this.value)" placeholder="ملاحظة..." style="width:100%;min-height:60px;">${escHtml(r.notes)}</textarea></td>
       <td><button class="btn btn-danger btn-sm" onclick="deleteRow(${r.id})">✕</button></td>
     `;
     tbody.appendChild(tr);
@@ -302,24 +367,31 @@ function renderTable(){
   document.getElementById('grand-total-display').textContent = fmt(grandTotal())+' جنيه';
 }
 
+function escHtml(str){
+  return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function updateRow(id, field, val){
   const r = rows.find(r=>r.id===id);
   if(!r) return;
   r[field] = val;
-  renderTable();
+  // only re-render totals, not full table, to avoid losing textarea focus
+  if(field==='qty'||field==='price'){
+    renderTable();
+  }
 }
 
 /* ══ CREATE CUSTOMER ═════════════════════════════════ */
 async function createCustomer(){
-  const engineer = document.getElementById('new-engineer').value.trim();
-  const address  = document.getElementById('new-address').value.trim();
+  const engineer   = document.getElementById('new-engineer').value.trim();
+  const address    = document.getElementById('new-address').value.trim();
+  const dollarRate = document.getElementById('new-dollar-rate').value.trim() || '52';
 
   if(!engineer && !address){
     showAlert('alert-create','error','برجاء إدخال موجه إلى أو العنوان');
     return;
   }
 
-  // الـ name بيتكوّن من موجه إلى + العنوان عشان يكون unique في الشيت
   const name = [engineer, address].filter(Boolean).join(' - ');
 
   currentCustomer = { name, phone:'', engineer, address };
@@ -327,6 +399,7 @@ async function createCustomer(){
 
   document.getElementById('banner-engineer').textContent = engineer || '—';
   document.getElementById('banner-address').textContent  = address  || '—';
+  document.getElementById('dollar-rate-display').value   = dollarRate;
 
   renderTable();
   goQuote();
@@ -355,8 +428,8 @@ async function loadCustomers(){
       div.className = 'customer-item';
       div.innerHTML = `
         <div>
-          <div class="ci-name">${c.engineer || c.name}</div>
-          <div class="ci-meta">${c.address || ''}</div>
+          <div class="ci-name">${escHtml(c.engineer || c.name)}</div>
+          <div class="ci-meta">${escHtml(c.address || '')}</div>
         </div>
         <div class="ci-badge">فتح ←</div>
       `;
@@ -427,18 +500,21 @@ function showPreview(){
 function buildPreview(){
   const date = new Date().toLocaleDateString('ar-EG',{year:'numeric',month:'long',day:'numeric'});
   const c    = currentCustomer || {};
+  const dollarRate = getDollarRate();
 
   const rowsHTML = rows.map((r,i)=>{
     const tot = calcTotal(r);
+    const desc = (r.description||'—').replace(/\n/g,'<br/>');
+    const notes = (r.notes||'').replace(/\n/g,'<br/>');
     return `<tr>
-      <td>${i+1}</td>
+      <td style="text-align:center;color:#6B5E4E;font-size:11px;">${i+1}</td>
       <td><span class="cat-tag cat-${r.category}">${r.category}</span></td>
-      <td>${r.unit||'—'}</td>
-      <td>${r.description||'—'}</td>
+      <td>${escHtml(r.unit)||'—'}</td>
+      <td style="min-width:200px;">${desc}</td>
       <td style="text-align:center;">${r.qty||0}</td>
       <td style="text-align:left;direction:ltr;">${fmt(r.price)}</td>
       <td style="text-align:left;direction:ltr;font-weight:700;">${fmt(tot)}</td>
-      <td>${r.notes||''}</td>
+      <td style="font-size:11px;">${notes}</td>
     </tr>`;
   }).join('');
 
@@ -454,8 +530,8 @@ function buildPreview(){
     </div>
 
     <div class="preview-client-box">
-      ${c.engineer?`<div class="cl-item"><span class="cl-label">موجه إلى</span><span class="cl-val">${c.engineer}</span></div>`:''}
-      ${c.address ?`<div class="cl-item"><span class="cl-label">العنوان / المشروع</span><span class="cl-val">${c.address}</span></div>`:''}
+      ${c.engineer?`<div class="cl-item"><span class="cl-label">موجه إلى</span><span class="cl-val">${escHtml(c.engineer)}</span></div>`:''}
+      ${c.address ?`<div class="cl-item"><span class="cl-label">العنوان / المشروع</span><span class="cl-val">${escHtml(c.address)}</span></div>`:''}
     </div>
 
     <p style="font-size:13px;color:#6B5E4E;margin-bottom:16px;line-height:1.8;">
@@ -465,8 +541,14 @@ function buildPreview(){
     <table class="preview-table">
       <thead>
         <tr>
-          <th>#</th><th>النموذج</th><th>الوحدة</th><th>المطلوب تنفيذه</th>
-          <th>عدد</th><th>السعر</th><th>الإجمالي</th><th>ملاحظات</th>
+          <th style="width:28px;">#</th>
+          <th style="width:90px;">النموذج</th>
+          <th style="width:70px;">الوحدة</th>
+          <th>المطلوب تنفيذه</th>
+          <th style="width:40px;">عدد</th>
+          <th style="width:80px;">السعر</th>
+          <th style="width:90px;">الإجمالي</th>
+          <th style="width:100px;">ملاحظات</th>
         </tr>
       </thead>
       <tbody>${rowsHTML}</tbody>
@@ -479,8 +561,8 @@ function buildPreview(){
       </tfoot>
     </table>
 
-    <div class="preview-notes" id="preview-notes-block">
-      • الأسعار مرتبطة بسعر الدولار اليوم 52 جنية مصري وسعر البنزين وأي تغيير في تكلفة التشغيل يضاف في حينها.<br/>
+    <div class="preview-notes">
+      • الأسعار مرتبطة بسعر الدولار اليوم <strong>${dollarRate}</strong> جنيه مصري وسعر البنزين وأي تغيير في تكلفة التشغيل يضاف في حينها.<br/>
       • الأسعار وضحت بناءاً على الرسم الهندسي والـ 3D وأي تعديل في المقاسات أو التصميم يغير من الأسعار وقت التنفيذ.
     </div>
 
@@ -491,16 +573,17 @@ function buildPreview(){
 /* ══ PDF ═════════════════════════════════════════════ */
 function downloadPDF(){
   const el  = document.getElementById('preview-inner');
+  const engName = (currentCustomer?.engineer||'quotation').replace(/\s+/g,'_').replace(/[^\w\u0600-\u06FF]/g,'');
   const opt = {
-    margin:      [10,10,10,10],
-    filename:    `LivingMood_${(currentCustomer?.engineer||'quotation').replace(/\s+/g,'_')}.pdf`,
-    image:       { type:'jpeg', quality:0.97 },
-    html2canvas: { scale:2, useCORS:true },
+    margin:      [8,8,8,8],
+    filename:    `LivingMood_${engName}.pdf`,
+    image:       { type:'jpeg', quality:0.98 },
+    html2canvas: { scale:2, useCORS:true, letterRendering:true },
     jsPDF:       { unit:'mm', format:'a4', orientation:'portrait' },
     pagebreak:   { mode:['avoid-all','css','legacy'] }
   };
   showLoading('جاري إنشاء PDF...');
-  html2pdf().set(opt).from(el).save().then(()=>hideLoading());
+  html2pdf().set(opt).from(el).save().then(()=>hideLoading()).catch(()=>hideLoading());
 }
 
 /* ══ WHATSAPP ════════════════════════════════════════ */
@@ -508,8 +591,7 @@ function sendWhatsApp(){
   const c    = currentCustomer || {};
   const phone = DEFAULT_WHATSAPP.replace(/\D/g,'');
   const gt   = fmt(grandTotal());
-  const dollarRate = prompt('سعر الدولار اليوم؟','52');
-  if(dollarRate === null) return; // لو ضغط cancel
+  const dollarRate = getDollarRate();
 
   const msg = encodeURIComponent(
     `موجه إلى: ${c.engineer||'—'}\n`+
