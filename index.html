@@ -513,7 +513,7 @@ const UI = {
     $('mail-modal').classList.add('open');
   },
 
-  async sendMailNow(){
+ async sendMailNow(){
     const to = $('mail-to-input').value.trim();
     const statusEl = $('mail-status');
     const inputEl  = $('mail-to-input');
@@ -531,6 +531,19 @@ const UI = {
       inputEl.style.borderColor = '#dc3545';
       showStatus('err', '⚠ من فضلك اكتب إيميل صحيح');
       inputEl.focus();
+      return;
+    }
+
+    // ── تحقق إن الكوتيشن فيه بيانات حقيقية قبل الإرسال ──
+    const hasValidRow = STATE.rows.some(r =>
+      (r.description && r.description.trim()) || num(r.price) > 0
+    );
+    if(!hasValidRow){
+      showStatus('err', '⚠ الكوتيشن فاضي، من فضلك أضف بنود قبل الإرسال');
+      return;
+    }
+    if(!STATE.customer || (!STATE.customer.engineer && !STATE.customer.address)){
+      showStatus('err', '⚠ بيانات العميل ناقصة (موجه إلى / العنوان)، رجع وعدّل قبل الإرسال');
       return;
     }
 
