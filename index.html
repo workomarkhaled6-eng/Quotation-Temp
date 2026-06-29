@@ -723,11 +723,15 @@ const API = {
 /* ─── PDF / Print ─── */
 const PDF = {
   downloadAndPrint(){
-    const win = window.open('', '_blank', 'width=920,height=720');
-    if(!win){ alert('الرجاء السماح بالـ Popups للموقع'); return; }
-    win.document.open();
-    win.document.write(buildPdfHtml(false));
-    win.document.close();
+    const html = buildPdfHtml(true);
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'LivingMood_Quote.html';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 1000);
   }
 };
 
