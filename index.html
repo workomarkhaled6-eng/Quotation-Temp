@@ -437,19 +437,19 @@ table.items { width:100%; border-collapse:collapse; font-size:12px; direction:rt
     padding:10px;
     box-shadow:0 2px 8px rgba(30,26,21,.08);
   }
-  table.items tbody td { padding:4px 8px; border:none; font-size:12px; }
+  table.items tbody td { padding:6px 8px; border:none; font-size:13px; display:flex; align-items:baseline; gap:8px; }
   table.items tbody td:before {
     display:inline-block;
     font-weight:700;
     color:#6B5E4E;
     font-size:11px;
-    margin-left:6px;
-    min-width:70px;
+    min-width:64px;
+    flex-shrink:0;
   }
   table.items tbody td:nth-child(1):before { content:'#'; }
   table.items tbody td:nth-child(2):before { content:'النموذج:'; }
   table.items tbody td:nth-child(3):before { content:'الوحدة:'; }
-  table.items tbody td:nth-child(4) { background:#F3EFEA; border-radius:6px; padding:8px; margin:6px 0; line-height:1.8; }
+table.items tbody td:nth-child(4) { background:#F3EFEA; border-radius:6px; padding:8px; margin:6px 0; line-height:1.8; display:block; }
   table.items tbody td:nth-child(4):before { content:'التنفيذ:'; display:block; margin-bottom:4px; }
   table.items tbody td:nth-child(5):before { content:'العدد:'; }
   table.items tbody td:nth-child(6):before { content:'السعر:'; }
