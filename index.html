@@ -728,6 +728,7 @@ const API = {
 /* ─── PDF / Print ─── */
 const PDF = {
   downloadAndPrint(){
+    loading('جاري تحضير PDF...');
     const container = document.createElement('div');
     container.innerHTML = buildPdfHtml(false);
     container.style.position = 'fixed';
@@ -737,17 +738,18 @@ const PDF = {
     container.style.background = '#fff';
     document.body.appendChild(container);
 
-    // ننتظر تحميل الخطوط والصور قبل التصوير
-    const imgs = container.querySelectorAll('img');
-    const ready = document.fonts ? document.fonts.ready : Promise.resolve();
+    const waitFonts = document.fonts ? document.fonts.ready : Promise.resolve();
 
-    ready.then(() => new Promise(r=>setTimeout(r,300))).then(()=>{
+    waitFonts.then(() => new Promise(r => setTimeout(r, 500))).then(() => {
       html2pdf().set({
         margin: [10,10,10,10],
         filename: 'LivingMood_Quote.pdf',
-        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor:'#ffffff' },
+        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
         jsPDF: { unit:'mm', format:'a4', orientation:'portrait' }
-      }).from(container).save().then(()=> container.remove());
+      }).from(container).save()
+        .then(() => container.remove())
+        .catch(err => { alert_('alert-save','err','تعذر إنشاء PDF: '+err.message); container.remove(); })
+        .finally(loaded);
     });
   }
 };
