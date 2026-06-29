@@ -378,7 +378,7 @@ const UI = {
 
 /* ─── rows / table ─── */
 const Q = {
-  newRow(){ return {_id:Math.random(),category:'أبواب',unit:'',description:'',qty:1,price:0,notes:''}; },
+  newRow(){ return {_id:Math.random(),category:'',unit:'',description:'',qty:1,price:0,notes:''}; },
   addRow(){ STATE.rows.push(this.newRow()); this.render(); },
   del(id)  { STATE.rows=STATE.rows.filter(r=>r._id!==id); this.render(); },
   tot(r)   { return num(r.qty)*num(r.price); },
@@ -401,7 +401,7 @@ const Q = {
       tr.innerHTML=`
         <td style="text-align:center;color:var(--mid);font-size:11px;">${i+1}</td>
         <td><input type="text" value="${h(r.category)}" onchange="Q.set(${r._id},'category',this.value)" placeholder="أبواب"/></td>
-        <td><input type="text" value="${h(r.unit)}"     onchange="Q.set(${r._id},'unit',this.value)"     placeholder="م²"/></td>
+        <td><input type="text" value="${h(r.unit)}"     onchange="Q.set(${r._id},'unit',this.value)"     placeholder="الوحده"/></td>
         <td><textarea         onchange="Q.set(${r._id},'description',this.value)" placeholder="اكتب وصف العمل هنا...">${h(r.description)}</textarea></td>
         <td><input type="number" min="0" value="${r.qty}"   onchange="Q.setNum(${r._id},'qty',this.value)"/></td>
         <td><input type="number" min="0" value="${r.price}" onchange="Q.setNum(${r._id},'price',this.value)"/></td>
